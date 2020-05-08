@@ -1,34 +1,65 @@
-<template>
-    <div class="register">
-        <el-container>
-            <el-header height="400px" class="header-register">
-                <img src="../assets/fzu.png" width="10%"/>
-            </el-header>
-            <el-main class="main-register">
-                <div class="login-form">
-                    <form action="#" class="main-register-form">
-                        <el-input type="text" style="width: 40%;"  v-model="username" placeholder="请输入用户名" prefix-icon="el-icon-user"></el-input>  
-                        <el-input type="text" style="width: 40%;"  v-model="email" placeholder="请输入邮箱" prefix-icon="el-icon-message"></el-input>    
-                        <el-input type="text" style="width: 40%;"  placeholder="请输入密码" v-model="password" show-password prefix-icon="el-icon-key"></el-input> 
-                        <div class="main-register-form-code" style="width: 50%;">      
-                            <el-input type="text" style="width: 80%;" v-model="codeEmail" placeholder="请输入验证码" prefix-icon="el-icon-mobile-phone"></el-input>  
+<template>  
+    <div class="page lang-zh-s">
+        <div class="header">
+            <div class="logo">
+                <img src="../assets/fzu.png">
+                <h2 class="tsl">用户注册</h2>
+            </div>
+        </div>
+        <div class="steps steps-4">
+            <el-steps :active="active" finish-status="success">
+                <el-step title="验证邮箱"></el-step>
+                <el-step title="设置账户信息"></el-step>
+                <el-step title="注册成功"></el-step>
+            </el-steps>
+        </div>
+        <div class="content">
+            <form action="#" class="main-register-form">
+                <div class="form-list form-main-list" v-if="false">
+                    <div class="form-group">
+                        <div class="form-item">
+                            <span class="form-label tsl">邮箱号</span>
+                            <el-input class="text-input" type="text"  v-model="email" placeholder="请输入邮箱" prefix-icon="el-icon-message"></el-input>
+                        </div>
+                        <div class="form-item">
+                            <span class="form-label tsl">验证</span>
+                            <el-input type="text" class="code-input" v-model="codeEmail" placeholder="请输入验证码" prefix-icon="el-icon-mobile-phone"></el-input>  
                             <el-button type="success" class="verifi-code" @click="getCodeEmail" v-if="!sendCode">获取验证码</el-button>
                             <el-button class="verifi-code readonly" v-if="sendCode">{{timeOut}}秒重新获取</el-button>
                         </div>
-                        <el-button type="primary" class="login-btn" @click="regist" style="width: 40%;">注册</el-button>
-                    </form>
+                    </div>
+                    <div class="form-group">
+                        <div class="form-item form-item-short">
+                            <el-button class="form-next" @click="next" disabled >下一步</el-button>
+                        </div>
+                        
+                    </div>
                 </div>
-            </el-main>
-            <el-footer class="footer-register">
-                <div class="forgets">
-                    <router-link to="/login"><el-button type="text">已有账号?登录>></el-button></router-link>
+                <div class="form-list form-main-list" v-if="true">
+                    <div class="form-group">
+                        <div class="form-item">
+                            <span class="form-label tsl">用户名</span>
+                            <el-input type="text"  class="text-input" v-model="username" placeholder="请输入用户名" prefix-icon="el-icon-user"></el-input>
+                        </div>
+                        <div class="form-item">
+                            <span class="form-label tsl">密码</span>
+                            <el-input type="text" class="text-input" placeholder="请输入密码" v-model="password" show-password prefix-icon="el-icon-key"></el-input>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="form-item form-item-short">
+                            <el-button class="form-next" @click="regist" disabled >下一步</el-button>
+                        </div>
+                        
+                    </div>
                 </div>
-                <div class="prompt">
-                    <p>注：若未收到验证码，请查看垃圾箱</p>
+                <div class="form-list form-main-list" v-if="false">
+                    
                 </div>
-            </el-footer>
-        </el-container>
+            </form>
+        </div>
     </div>
+    
 </template>
 
 <script>
@@ -43,12 +74,16 @@ export default {
             password: '',
             codeEmail: '',
             sendCode: false,
-            timeOut: 60
+            timeOut: 60,
+            active: 0
         }
     },
     computed: {
     },
     methods: {
+        next() {
+        if (this.active++ > 2) this.active = 0;
+        },
         getCodeEmail () {
             let me = this;
             if (!this.username) {
@@ -111,6 +146,7 @@ export default {
             if(/^\d$/.test(this.password)){
                 _.alert('密码不能全为数字');
             }
+            this.next();
             let data = {
                 "username": this.username,
                 "password":this.password,
@@ -123,7 +159,7 @@ export default {
                 if(res.data.msg){
                     setTimeout(function(){
                         me.$router.push('/login');//跳转到登录界面
-                    },1000)
+                    },4000)
                     
                 }else{
                     _.alert(res.data.msg);
@@ -138,6 +174,88 @@ export default {
 </script>
 
 <style>
+
+.page {
+    width: 1190px;
+    margin: 0 auto;
+    color: #3c3c3c;
+    font: 400 12px/1.6;
+}
+.header {
+    position: relative;
+    height: 43px;
+    padding: 40px 0;
+}
+.logo {
+    display: inline-block;
+}
+.logo img {
+    display: inline-block;
+    width: 106px;
+    height: 64px;
+    overflow: hidden;
+    vertical-align: middle;
+}
+.logo h2 {
+    display: inline-block;
+    height: 43px;
+    line-height: 43px;
+    margin-left: 6px;
+    font-size: 22px;
+    font-weight: 400;
+    vertical-align: middle;
+}
+.steps {
+    height: 64px;
+    position: relative;
+    width: 720px;
+    margin: 0 auto;
+}
+.content {
+    padding: 50px 0;
+}
+.form-main-list {
+    width: 720px;
+}
+.form-list {
+    margin: 0 auto;
+    font-size: 14px;
+}
+.form-group {
+    padding: 10px 0;
+}
+.form-item {
+    padding: 10px 0 10px 260px;
+    line-height: 36px;
+    height: 40px;
+}
+.form-item .form-label {
+    display: inline;
+    float: left;
+    margin-left: -240px;
+    width: 220px;
+    height: 40px;
+    line-height: 40px;
+    text-align: right;
+}
+.form-item /deep/ .text-input {
+    width: 340px;
+    float: left;
+    position: relative;
+}
+.form-item /deep/ .code-input{
+    width: 220px;
+}
+.form-item /deep/ .verifi-code{
+    width: 120px;
+}
+.form-item /deep/ .form-next{
+    width: 180px;
+}
+.form-item-short {
+    padding-top: 0;
+    padding-bottom: 0;
+}
 .header-register{
     display: flex;
     flex-direction: row;
