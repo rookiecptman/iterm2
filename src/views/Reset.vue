@@ -1,33 +1,63 @@
 <template>
-    <div class="reset">
-        <el-container>
-            <el-header class="header-reset" height="400px">
-                <img src="../assets/chongzhi.png" width="20%">
-            </el-header>
-            <el-main class="main-reset">
-                <div class="login-form">
-                    <form action="#" class="main-reset-form">
-                            <el-input type="text" style="width: 40%;"  v-model="email" placeholder="请输入邮箱" prefix-icon="el-icon-message"></el-input>  
-                            <el-input type="text" style="width: 40%;"  placeholder="请输入密码" v-model="password" show-password prefix-icon="el-icon-key"></el-input>      
-                            <el-input type="text" style="width: 40%;"  placeholder="请确认密码" v-model="password1" show-password prefix-icon="el-icon-key"></el-input>    
-                            <div class="main-reset-form-code" style="width: 50%;">
-                                <el-input type="text" style="width: 80%;" v-model="codeEmail" placeholder="请输入验证码" prefix-icon="el-icon-mobile-phone"></el-input>  
-                                <el-button type="success" class="verifi-code" @click="getCodeEmail" v-if="!sendCode">获取验证码</el-button>
-                                <el-button class="verifi-code readonly" v-if="sendCode">{{timeOut}}秒重新获取</el-button>
-                            </div>
-                            <el-button type="primary" class="login-btn" @click="regist">提交</el-button>
-                    </form>
+    <div class="page lang-zh-s">
+        <div class="regist-header">
+            <div class="regist-logo">
+                <img src="../assets/fzu.png">
+                <h2 class="tsl">重置密码</h2>
+            </div>
+        </div>
+        <div class="steps steps-4">
+            <el-steps :active="active" finish-status="success">
+                <el-step title="验证邮箱"></el-step>
+                <el-step title="重置密码"></el-step>
+                <el-step title="重置成功"></el-step>
+            </el-steps>
+        </div>
+        <div class="regist-content">
+            <form action="#" class="main-register-form">
+                <div class="form-list form-main-list" v-if="active===0">
+                    <div class="form-group">
+                        <div class="form-item">
+                            <span class="form-label tsl">邮箱号</span>
+                            <el-input class="text-input" type="text"  v-model="email" placeholder="请输入邮箱" prefix-icon="el-icon-message"></el-input>
+                        </div>
+                        <div class="form-item">
+                            <span class="form-label tsl">验证</span>
+                            <el-input type="text" class="code-input" v-model="codeEmail" placeholder="请输入验证码" prefix-icon="el-icon-mobile-phone"></el-input>  
+                            <el-button type="success" class="verifi-code" @click="getCodeEmail" v-if="!sendCode">获取验证码</el-button>
+                            <el-button class="verifi-code readonly" v-if="sendCode">{{timeOut}}秒重新获取</el-button>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="form-item form-item-short">
+                            <el-button class="form-next" @click="next" :disabled="pass1">下一步</el-button>
+                        </div>
+                        
+                    </div>
                 </div>
-            </el-main>
-            <el-footer class="footer-reset">
-                <div class="forgets">
-                    <router-link to="/login"><el-button type="text">记起密码?登录>></el-button></router-link>
+                <div class="form-list form-main-list" v-if="active===1">
+                    <div class="form-group">
+                        <div class="form-item">
+                            <span class="form-label tsl">密码</span>
+                            <el-input type="text"  class="text-input" placeholder="请输入密码" v-model="password" show-password prefix-icon="el-icon-key"></el-input>
+                        </div>
+                        <div class="form-item">
+                            <span class="form-label tsl">确认密码</span>
+                            <el-input type="text" class="text-input" placeholder="请确认密码" v-model="password1" show-password prefix-icon="el-icon-key"></el-input>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="form-item form-item-short">
+                            <el-button class="form-next" @click="regist" :disabled="pass2" >下一步</el-button>
+                        </div>
+                        
+                    </div>
                 </div>
-                <div class="prompt">
-                    <p>注：若未收到验证码，请查看垃圾箱</p>
+                <div class="form-list form-main-list" v-if="active===2">
+                    
                 </div>
-            </el-footer>
-        </el-container>
+            </form>
+        </div>
     </div>
 </template>
 
@@ -43,12 +73,32 @@ export default {
             password1:'',
             codeEmail: '',
             sendCode: false,
-            timeOut: 60
+            timeOut: 60,
+            active: 0,
         }
     },
     computed: {
+        pass1:function(){
+            if(this.$data.email&&this.$data.codeEmail){
+                return false
+            }
+            else{
+                return true
+            }
+        },
+        pass2:function(){
+            if(this.$data.password&&this.$data.password1){
+                return false
+            }
+            else{
+                return true
+            }
+        }
     },
     methods: {
+        next() {
+        if (this.active++ > 2) this.active = 0;
+        },
         getCodeEmail () {
             let me = this;
             if (!this.email) {
@@ -117,7 +167,7 @@ export default {
                 if(res.data.msg){
                     setTimeout(function(){
                         me.$router.push('/login');//跳转到登录界面
-                    },1000)
+                    },4000)
                     
                 }else{
                     _.alert(res.data.msg);
@@ -126,34 +176,11 @@ export default {
             .catch(res => {
                  _.alert('邮件发送失败')
             });
+            this.next()
         }
     }
 }
 </script>
 
 <style >
-.header-reset{
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-}
-.main-reset-form{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-.main-reset-form-code{
-    margin-left: 10%;
-}
-.footer-reset{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-}
-.footer-reset{
-    margin: 0 16%;
-}
 </style>

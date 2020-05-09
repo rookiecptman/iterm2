@@ -1,7 +1,7 @@
 <template>  
     <div class="page lang-zh-s">
-        <div class="header">
-            <div class="logo">
+        <div class="regist-header">
+            <div class="regist-logo">
                 <img src="../assets/fzu.png">
                 <h2 class="tsl">用户注册</h2>
             </div>
@@ -13,9 +13,9 @@
                 <el-step title="注册成功"></el-step>
             </el-steps>
         </div>
-        <div class="content">
+        <div class="regist-content">
             <form action="#" class="main-register-form">
-                <div class="form-list form-main-list" v-if="false">
+                <div class="form-list form-main-list" v-if="active===0">
                     <div class="form-group">
                         <div class="form-item">
                             <span class="form-label tsl">邮箱号</span>
@@ -30,12 +30,12 @@
                     </div>
                     <div class="form-group">
                         <div class="form-item form-item-short">
-                            <el-button class="form-next" @click="next" disabled >下一步</el-button>
+                            <el-button class="form-next" @click="next" :disabled="pass1" >下一步</el-button>
                         </div>
                         
                     </div>
                 </div>
-                <div class="form-list form-main-list" v-if="true">
+                <div class="form-list form-main-list" v-if="active===1">
                     <div class="form-group">
                         <div class="form-item">
                             <span class="form-label tsl">用户名</span>
@@ -48,12 +48,12 @@
                     </div>
                     <div class="form-group">
                         <div class="form-item form-item-short">
-                            <el-button class="form-next" @click="regist" disabled >下一步</el-button>
+                            <el-button class="form-next" @click="regist" :disabled="pass2" >下一步</el-button>
                         </div>
                         
                     </div>
                 </div>
-                <div class="form-list form-main-list" v-if="false">
+                <div class="form-list form-main-list" v-if="active===2">
                     
                 </div>
             </form>
@@ -79,6 +79,22 @@ export default {
         }
     },
     computed: {
+        pass1:function(){
+            if(this.$data.email&&this.$data.codeEmail){
+                return false
+            }
+            else{
+                return true
+            }
+        },
+        pass2:function(){
+            if(this.$data.password&&this.$data.username){
+                return false
+            }
+            else{
+                return true
+            }
+        }
     },
     methods: {
         next() {
@@ -146,7 +162,6 @@ export default {
             if(/^\d$/.test(this.password)){
                 _.alert('密码不能全为数字');
             }
-            this.next();
             let data = {
                 "username": this.username,
                 "password":this.password,
@@ -168,35 +183,35 @@ export default {
             .catch(res => {
                  _.alert('邮件发送失败')
             });
+            this.next()
         }
     }
 }
 </script>
 
 <style>
-
 .page {
     width: 1190px;
     margin: 0 auto;
     color: #3c3c3c;
     font: 400 12px/1.6;
 }
-.header {
+.regist-header {
     position: relative;
     height: 43px;
     padding: 40px 0;
 }
-.logo {
+.regist-logo {
     display: inline-block;
 }
-.logo img {
+.regist-logo img {
     display: inline-block;
     width: 106px;
     height: 64px;
     overflow: hidden;
     vertical-align: middle;
 }
-.logo h2 {
+.regist-logo h2 {
     display: inline-block;
     height: 43px;
     line-height: 43px;
@@ -211,7 +226,7 @@ export default {
     width: 720px;
     margin: 0 auto;
 }
-.content {
+.regist-content {
     padding: 50px 0;
 }
 .form-main-list {
@@ -230,7 +245,7 @@ export default {
     height: 40px;
 }
 .form-item .form-label {
-    display: inline;
+    display: block;
     float: left;
     margin-left: -240px;
     width: 220px;

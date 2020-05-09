@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="home">
         <div class="cup j-cup">
             <div class="top j-top">
                 <div class="top-wrap clearfix">
@@ -8,7 +8,7 @@
                     </div>
                     <div class="fzu-search j-module">
                         <div class="search-top">
-                            <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" @select="handleSelect">
+                            <el-menu class="el-menu-demo" mode="horizontal">
                                 <el-menu-item index="1">淘宝</el-menu-item>
                                 <el-menu-item index="2">天猫</el-menu-item>
                                 <el-menu-item index="3">店铺</el-menu-item>
@@ -19,7 +19,7 @@
                                 placeholder="请输入内容"
                                 prefix-icon="el-icon-search"
                                 suffix-icon="el-icon-camera"
-                                v-model="input">
+                                >
                             </el-input>
                         </div>
                         <div class="search-button">
@@ -63,7 +63,7 @@
         <div class="screen-outer clearfix">
             <div class="main" role="main">
                 <div class="fzu-service j-module">
-                    <el-menu default-active="taobao" class="service-bd" @open="handleOpen" @close="handleClose" :collapse="isCollapse">
+                    <el-menu class="service-bd" >
                         <el-menu-item index="1">
                             <span slot="title">女装/男装/内衣</span>
                         </el-menu-item>
@@ -328,6 +328,67 @@
 </template>
 
 <style>
+@media screen and (max-width: 1200px){
+    .top .top-wrap {
+        width: 990px;
+        margin: 0 auto;
+    }
+    .top-wrap .fzu-search {
+        margin-left: 218px;
+        margin-right: 145px;
+    }
+    .fzu-nav .nav {
+        width: 990px;
+        margin: 0 auto;
+    }
+    .nav .last{
+        display: none;
+    }
+    .home .screen-outer{
+        width: 990px;
+    }
+    .screen-outer .main{
+        width: 700px;
+    }
+    .main .core {
+        width: 492px;
+        overflow: hidden;
+    }
+    .main .sub-column{
+        display: none;
+    }
+    .home .layer{
+        width: 990px;
+    }
+    .layer-inner .fzu-discover-goods{
+        width: 490px;
+    }
+    .layer-inner .fzu-shopping{
+        width: 490px;
+    }
+    .goods-inner .goods-list a {
+        width: 148px;
+    }
+    .fzu-discover-goods .img-wrapper {
+        height: 148px;
+        margin-top: 16px;
+        margin-bottom: 16px;
+    }
+    .goods-inner .goods-list a .img-wrapper img {
+        height: 148px;
+    }
+    .fzu-shopping .shopping-inner .list li {
+        width: 148px;
+    }
+    .fzu-shopping .list li .img-wrapper {
+        height: 148px;
+        margin-top: 16px;
+        margin-bottom: 16px;
+    }
+    .fzu-shopping .list li .img-wrapper img {
+        height: 148px;
+    }
+}
 .top{
     background-color: #fff;
     padding-top: 24px;
@@ -362,6 +423,10 @@
 }
 .search-button{
     width: 20%;
+    
+}
+.search-button .el-button{
+    height: 48px;
 }
 .fzu-qr-wrapper{
     position: absolute;
@@ -371,7 +436,7 @@
 .fzu-bg{
     background-image: linear-gradient(to right,#ff9000 0,#ff5000 100%);
 }
-div.fzu-nav .nav {
+.nav {
     width: 1190px;
     margin: 0 auto;
 }
@@ -441,7 +506,7 @@ ol, ul {
     float: left;
     width: 190px;
 }
-.main .core {
+.core {
     margin-left: 10px;
     margin-top: 10px;
     float: left;
@@ -583,7 +648,6 @@ ol, ul {
     margin-right: 5px;
 }
 .fl {
-    float: left;
     display: inline;
 }
 .mod-hd p {
@@ -648,7 +712,7 @@ ol, ul {
     overflow: hidden;
     padding-left: 21px;
 }
-.fzu-shopping .list li {
+.shopping-inner .list li {
     float: left;
     width: 180px;
     overflow: hidden;

@@ -53,8 +53,7 @@ export default {
 
 <style>
 meta{
-  name:"viewport"; 
-  content:"width=device-width,initial-scale=1.0"
+  content:"width=device-width,initial-scale=1.0";
 }
 body {
     color: #3C3C3C;
@@ -77,6 +76,12 @@ a {
 }
 fieldset, img {
     border: 0;
+}
+@media screen and (max-width: 1200px){
+    .site-nav .site-nav-bd {
+    width: 990px;
+    margin: 0 auto;
+}
 }
 .site-nav .site-nav-bd .site-nav-bd-l, .site-nav .site-nav-bd .site-nav-bd-l .menu, .site-nav .site-nav-bd .site-nav-bd-r .menu {
     float: left;
