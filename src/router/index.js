@@ -4,6 +4,7 @@ import Home from '../views/Home.vue'
 import Login from '../views/Login.vue'
 import Regist from '../views/Regist.vue'
 import Reset from '../views/Reset.vue'
+import User from '../views/User.vue'
 
 Vue.use(VueRouter)
 
@@ -27,6 +28,11 @@ Vue.use(VueRouter)
     path: '/reset',
     name: 'Reset',
     component: Reset
+  },
+  {
+    path: '/user',
+    name: 'User',
+    component: User
   }
 ]
 

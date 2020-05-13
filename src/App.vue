@@ -22,7 +22,7 @@
                 <li class="menu home">
                     <div class="menu-hd">
                         <a href="/" class="h">首页</a>
-                        <a href=""></a>
+                        <a href="/user">我的FZU</a>
                     </div>
                 </li>
             </ul>
