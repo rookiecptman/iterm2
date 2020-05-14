@@ -4,6 +4,7 @@ import router from './router'
 import store from './store'
 import axios from 'axios'
 import qs from 'qs'
+import VueCookie from 'vue-cookies'
 import './plugins/element.js'
 
 Vue.config.productionTip = false
@@ -14,6 +15,7 @@ axios.defaults.headers = {
 axios.defaults.baseURL = 'http://localhost:8082'
 Vue.prototype.$axios = axios
 Vue.prototype.$qs = qs
+Vue.prototype.$cookie = VueCookie
 
 new Vue({
   router,

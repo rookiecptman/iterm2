@@ -5,6 +5,10 @@ import Login from '../views/Login.vue'
 import Regist from '../views/Regist.vue'
 import Reset from '../views/Reset.vue'
 import User from '../views/User.vue'
+import Shop from '../views/Shop.vue'
+import Store from '../views/Store.vue'
+import StoreDetail from '../views/StoreDetail.vue'
+
 
 Vue.use(VueRouter)
 
@@ -33,6 +37,21 @@ Vue.use(VueRouter)
     path: '/user',
     name: 'User',
     component: User
+  },
+  {
+    path: '/store',
+    name: 'Store',
+    component: Store
+  },
+  {
+    path: '/shop',
+    name: 'Shop',
+    component: Shop
+  },
+  {
+    path: '/storedetail',
+    name: 'StoreDetail',
+    component: StoreDetail
   }
 ]
 
