@@ -22,7 +22,7 @@
                 <li class="menu home">
                     <div class="menu-hd">
                         <a href="/" class="h">首页</a>
-                        <a href="/user">我的FZU</a>
+                        <a href="/usermess">我的FZU</a>
                     </div>
                 </li>
             </ul>
@@ -74,7 +74,7 @@ export default {
             })
             this.$axios.defaults.headers = {
                 "Content-Type": "application/json;charset=UTF-8",
-                "Authorization": this.$cookie.get('token')
+                "token": this.$cookie.get('token')
             }
         }
     }

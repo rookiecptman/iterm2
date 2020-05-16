@@ -134,12 +134,12 @@
                             <div class="member-logout j-memberlogout" v-if="haveinfo">
                                 <a href="/store">商品</a>
                                 <a href="/reset">重置</a>
-                                <a href="/openshop">开店</a>
+                                <button @click="openshop" >开店</button>
                             </div>
                             <div class="member-logout j-memberlogout" v-if="!haveinfo">
                                 <a href="/login">登录</a>
                                 <a href="/regist">注册</a>
-                                <button @click="openshop" >开店</button>
+                                <a href="/login">开店</a>
                             </div>
                         </div>
                     </div>
@@ -626,6 +626,20 @@ ol, ul {
     font-size: 14px;
     font-weight: 700;
 }
+.member-logout button{
+    float: left;
+    line-height: 25px;
+    width: 75px;
+    margin-right: 15px;
+    text-align: center;
+    color: #FFF;
+    background-image: linear-gradient(to right,#ff5000 0,#ff6f06 100%);
+    background-repeat: repeat-x;
+    border-radius: 4px;
+    background-clip: padding-box;
+    font-size: 14px;
+    font-weight: 700;
+}
 .fzu-tip{
     width: 290px;
     min-height: 10px;
@@ -823,9 +837,10 @@ export default {
     },
     methods:{
         openshop:function(){
+            console.log(this.$axios.defaults)
             this.$axios.put('/api/merchant')
             .then(res => {
-                console.log(res)
+                _.alert('申请成功');
             })
             .catch(err => {
             })

@@ -4,7 +4,7 @@ import Home from '../views/Home.vue'
 import Login from '../views/Login.vue'
 import Regist from '../views/Regist.vue'
 import Reset from '../views/Reset.vue'
-import User from '../views/User.vue'
+import Usermess from '../views/Usermess.vue'
 import Shop from '../views/Shop.vue'
 import Store from '../views/Store.vue'
 import StoreDetail from '../views/StoreDetail.vue'
@@ -34,9 +34,9 @@ Vue.use(VueRouter)
     component: Reset
   },
   {
-    path: '/user',
-    name: 'User',
-    component: User
+    path: '/usermess',
+    name: 'Usermess',
+    component: Usermess
   },
   {
     path: '/store',

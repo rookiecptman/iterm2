@@ -12,7 +12,7 @@ export default new Vuex.Store({
         state:false,
         token:'',
         user:''
-    }
+    },
   },
   mutations: {
     [COM_SHOW_ALERT](state, status) {
