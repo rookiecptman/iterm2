@@ -13,8 +13,8 @@
             <ul class="site-nav-bd-l">
                 <li class="menu">
                     <div class="menu-hd">
-                        <a href="/login" class="h">亲，请登录</a>
-                        <a href="/regist">免费注册</a>
+                        <a href="/login" class="h">{{user}}</a>
+                        <a href="/regist" v-if="!haveinfo">免费注册</a>
                     </div>
                 </li>
             </ul>
@@ -34,31 +34,61 @@
 
 <script>
 import { mapGetters, mapState } from 'vuex'
+import * as _ from './util/index'
 export default {
-  data() {
-    return {
-    }
-  },
-  name: 'app',
-  computed:mapState({
-    alertMsg: state => {
-        return state.alertMsg 
+    data() {
+        return {
+        }
     },
-    ...mapGetters([
-          'showAlert'
-      ])
-  })
+    name: 'app',
+    computed:{
+        ...mapState({
+            loginInfo: state =>{
+                return state.loginInfo
+            },
+            alertMsg: state => {
+                return state.alertMsg 
+            },
+            haveinfo:state => {
+                return state.loginInfo.state 
+            },
+            user:state => {
+                if(state.loginInfo.user){
+                    return state.loginInfo.user 
+                }
+                else{
+                    return "亲，请登录"
+                }
+            },
+            ...mapGetters([
+                'showAlert'
+            ])
+        }),
+    },
+    created:function(){
+        if(this.$cookie.get('token')){
+            _.loginInfo({
+                state:true,
+                token:this.$cookie.get('token'),
+                user:this.$cookie.get('user')
+            })
+            this.$axios.defaults.headers = {
+                "Content-Type": "application/json;charset=UTF-8",
+                "Authorization": this.$cookie.get('token')
+            }
+        }
+    }
 }
 </script>
 
 <style>
 meta{
-  content:"width=device-width,initial-scale=1.0";
+    content:"width=device-width,initial-scale=1.0";
 }
 body {
     color: #3C3C3C;
     -webkit-font-smoothing: antialiased;
-    background-color: #f4f4f4;
+    background-color: #fff;
 }
 blockquote, body, button, dd, dl, dt, fieldset, form, h1, h2, h3, h4, h5, h6, hr, input, legend, li, ol, p, pre, td, textarea, th, ul {
     margin: 0;
@@ -69,6 +99,9 @@ h1, h2, h3, h4, h5, h6 {
 }
 ol, ul {
     list-style: none;
+}
+address, cite, dfn, em, var {
+    font-style: normal;
 }
 a {
     cursor: pointer;

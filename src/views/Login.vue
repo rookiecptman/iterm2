@@ -68,7 +68,6 @@ export default {
             if(!REG_EAMIL.test(data.email)){
                 _.alert('邮箱格式错误')
             }
-            
             this.$axios.post('/api/login',JSON.stringify(data))
             .then(res => {
                 if(res.status===200){
@@ -80,6 +79,9 @@ export default {
                         token:res.data.data.token,
                         user:data.email
                     })
+                    this.$cookie.set("state",true,"1d")
+                    this.$cookie.set("token",res.data.data.token,"1d")
+                    this.$cookie.set("user",data.email,"1d")
                     console.log(res)
                 }else{
                     

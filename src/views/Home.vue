@@ -126,15 +126,20 @@
                                 <img src="../assets/avatar.png" width="100%">
                             </div>
                             <span class="member-nick-info">
-                                hi 你好
+                                hi {{user}}
                             </span>
                             <p class="member-tjb"></p>
                         </div>
                         <div class="member-ft">
-                            <div class="member-logout j-memberlogout">
+                            <div class="member-logout j-memberlogout" v-if="haveinfo">
+                                <a href="/store">商品</a>
+                                <a href="/reset">重置</a>
+                                <a href="/openshop">开店</a>
+                            </div>
+                            <div class="member-logout j-memberlogout" v-if="!haveinfo">
                                 <a href="/login">登录</a>
                                 <a href="/regist">注册</a>
-                                <a href="/">开店</a>
+                                <button @click="openshop" >开店</button>
                             </div>
                         </div>
                     </div>
@@ -322,8 +327,7 @@
                 </div>
             </div>
         </div>
-        <div class="main"></div>
-        <div class="footer"></div>
+        
     </div>
 </template>
 
@@ -357,6 +361,9 @@
     .main .sub-column{
         display: none;
     }
+    .home{
+        background-color: #f4f4f4;
+    }
     .home .layer{
         width: 990px;
     }
@@ -388,6 +395,9 @@
     .fzu-shopping .list li .img-wrapper img {
         height: 148px;
     }
+}
+.home{
+    background-color: #f4f4f4;
 }
 .top{
     background-color: #fff;
@@ -626,6 +636,7 @@ ol, ul {
 }
 .layer-inner {
     margin-top: 10px;
+    overflow: hidden;
 }
 .fzu-discover-goods{
     position: relative;
@@ -750,7 +761,8 @@ ol, ul {
 
 
 <script>
-
+import { mapGetters, mapState } from 'vuex'
+import * as _ from '../util/index'
 export default {
     name: 'Home',
     data() {
@@ -778,7 +790,45 @@ export default {
                     url1: require('../assets/item4-1.png'),
                     url2: require('../assets/item4-2.png')
                 },
-            ]
+            ],
+
+        }
+    },
+    computed:{
+        ...mapState({
+            loginInfo: state =>{
+                return state.loginInfo
+            },
+            haveinfo:state => {
+                return state.loginInfo.state 
+            },
+            user:state => {
+                if(state.loginInfo.user){
+                    return state.loginInfo.user 
+                }
+                else{
+                    return "你好"
+                }
+            }
+        }),
+    },
+    created:function(){
+        if(this.$cookie.get('token')){
+            _.loginInfo({
+                state:true,
+                token:this.$cookie.get('token'),
+                user:this.$cookie.get('user')
+            })
+        }
+    },
+    methods:{
+        openshop:function(){
+            this.$axios.put('/api/merchant')
+            .then(res => {
+                console.log(res)
+            })
+            .catch(err => {
+            })
         }
     }
 }

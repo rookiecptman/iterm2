@@ -76,12 +76,16 @@
                                 <div class="tb-item-info tb-clear">
                                     <div class="tb-item-info-l">
                                         <div class="tb-gallery">
-                                            <div class="tb-booth tb-pic tb-main-pic"></div>
+                                            <div class="tb-booth tb-pic tb-main-pic">
+                                                <img src="../assets/fzu.png" alt="">
+                                            </div>
                                         </div>
                                         <div class="tb-social tb-clearfix">
                                             <ul>
                                                 <li class="tb-social-fav">
-                                                    <a href="">收藏宝贝</a>
+                                                    <a href="">
+                                                        <i class="el-icon-star-on tb-icon"></i>
+                                                        收藏宝贝</a>
                                                 </li>
                                             </ul>
                                         </div>
@@ -144,9 +148,9 @@
                                                             <dt class="tb-property-type">数量</dt>
                                                             <dd>
                                                                 <span class="tb-stock" id="j-stock">
-                                                                    <button>-</button>
+                                                                    <button class="tb-reduce tb-iconfont">-</button>
                                                                     <span>1</span>
-                                                                    <button>+</button>
+                                                                    <button class="tb-increase tb-iconfont">+</button>
                                                                     件
                                                                 </span>
                                                                 <em>
@@ -372,6 +376,387 @@
     width: 24px;
     float: left;
     text-align: center;
+}
+#content {
+    position: relative;
+    width: 100%;
+    min-width: 990px;
+}
+#page #content #bd {
+    width: auto!important;
+    position: relative;
+    overflow: hidden;
+    margin: 0 auto;
+}
+#detail {
+    z-index: 99999999;
+    position: relative;
+    margin: 10px auto 0;
+    width: 1140px;
+    color: #3C3C3C;
+}
+.tb-detail-bd {
+    position: relative;
+    margin-bottom: 20px;
+    border: 1px solid #E8E8E8;
+}
+.clear:after, .tb-clear:after, .tb-clearfix:after {
+    content: '\20';
+    display: block;
+    height: 0;
+    clear: both;
+}
+#detail .tb-summary {
+    float: left;
+    width: 100%;
+}
+#detail .tb-sidebar {
+    float: left;
+    width: 200px;
+    margin-left: -200px;
+}
+#detail .tb-summary .tb-item-info {
+    margin-right: 198px;
+    border-right: 1px solid #E8E8E8;
+}
+.tb-item-info .tb-item-info-l {
+    float: left;
+    padding: 20px 0 20px 20px;
+    width: 400px;
+    position: relative;
+}
+.tb-item-info .tb-item-info-r {
+    float: left;
+    padding: 20px 20px 20px 0;
+    width: 498px;
+}
+.tb-gallery {
+    margin-bottom: 18px;
+    width: 400px;
+    overflow: hidden;
+}
+#detail #J_Social {
+    width: 100%!important;
+}
+#detail .tb-social {
+    float: left;
+    z-index: 2;
+    position: relative;
+}
+#detail .tb-social ul li {
+    float: left;
+    position: relative;
+    margin-right: 25px;
+    height: 22px;
+    line-height: 22px;
+}
+#detail .tb-social ul li a {
+    padding-left: 0;
+    height: auto;
+    color: #6C6C6C;
+    background: 0 0;
+}
+#detail .tb-social ul li a .tb-icon {
+    float: left;
+    margin: 4px 5px 0 0;
+    width: 16px;
+    height: 16px;
+}
+.tb-gallery .tb-main-pic {
+    width: 400px;
+    height: 400px;
+    overflow: hidden;
+}
+.tb-gallery .tb-booth {
+    position: relative;
+    margin-bottom: 15px;
+    z-index: 1;
+}
+.tb-gallery .tb-main-pic img {
+    width: 400px;
+    height: 400px;
+    overflow: hidden;
+}
+.tb-item-info-r .tb-property {
+    z-index: 1;
+    position: relative;
+}
+.tb-property .tb-wrap {
+    padding-left: 18px;
+}
+#detail .tb-property-x .tb-title {
+    padding: 20px 0 10px!important;
+    position: relative;
+}
+#detail .tb-title:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+#detail .tb-title .tb-main-title {
+    min-height: 21px;
+    height: 21px;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 21px;
+    color: #3C3C3C;
+}
+.tb-title .tb-subtitle {
+    margin-top: 5px;
+    color: #6C6C6C;
+}
+.tb-property-x .tb-meta {
+    padding: 10px;
+    background-color: #FFF2E8;
+}
+.tb-meta {
+    z-index: 100000;
+    position: relative;
+    min-height: 35px;
+}
+.tb-meta .tb-property-type {
+    float: left;
+    width: 60px;
+    color: #6c6c6c;
+    font-size: 12px;
+}
+.tb-meta li {
+    margin-bottom: 0;
+    line-height: 24px;
+}
+.tb-meta .tb-detail-price {
+    width: 345px;
+}
+.tb-meta .tb-property-cont {
+    overflow: hidden;
+}
+.tb-meta .tb-detail-price strong {
+    position: relative;
+    top: -2px;
+    vertical-align: middle;
+    padding-right: 5px;
+    font-size: 24px;
+    font-weight: 700;
+    font-family: Tahoma,Arial,Helvetica,sans-serif;
+    color: #f40;
+    overflow: hidden;
+}
+#bd .tb-rmb{
+    font-family: arial;
+    font-weight: 400;
+    margin-right: 4px;
+    font-size: 24px;
+}
+#bd .tb-rmb-num {
+    font-family: verdana,arial;
+    font-size: 24px;
+}
+#detail .tb-property-x .tb-counter {
+    position: absolute;
+    top: 6px;
+    right: 10px;
+}
+.tb-counter .tb-rate-counter {
+    padding-right: 9px;
+    padding-left: 9px;
+    float: left;
+    text-align: center;
+}
+.tb-sell-counter a,.tb-rate-counter a {
+    display: block;
+    color: #6C6C6C;
+}
+.tb-sell-counter a strong,.tb-rate-counter a strong {
+    display: block;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 18px;
+}
+.tb-sell-counter a span,.tb-rate-counter a span {
+    font-size: 12px;
+}
+.tb-counter .tb-sell-counter {
+    border: none;
+    padding-right: 0;
+    padding-left: 9px;
+    border-left: 1px solid #ffe4d0;
+    float: left;
+    text-align: center;
+}
+.tb-logistic {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+#detail .tb-property-x .tb-logistic .tb-property-type {
+    padding-left: 10px;
+    font-size: 12px;
+}
+#detail .tb-logistic .tb-property-type {
+    display: inline;
+    color: #6c6c6c;
+    line-height: 24px;
+    
+}
+#detail .tb-property-x .sep-line {
+    margin: 0 0 10px;
+}
+#detail .sep-line {
+    z-index: 1;
+    position: relative;
+    height: 1px;
+    border-bottom: 1px dotted #D9D9D9;
+    overflow: hidden;
+}
+#detail .tb-property-x .tb-key {
+    padding-left: 18px;
+    padding-bottom: 5px;
+    margin-bottom: 20px;
+}
+#detail .tb-key {
+    z-index: 6;
+    position: relative;
+    margin: -9px 0 29px -9px;
+    padding: 9px 0 0 9px;
+    border: 1px solid #FFF;
+}
+#detail .tb-key .tb-skin {
+    position: relative;
+}
+#detail .tb-key dl {
+    margin-bottom: 10px;
+}
+#detail .tb-key dl dt {
+    font-size: 12px;
+    float: left;
+    margin-right: 5px;
+    width: 55px;
+    color: #6C6C6C;
+}
+#detail .tb-key dl dd {
+    overflow: hidden;
+}
+#detail .tb-key .tb-prop li {
+    float: left;
+    position: relative;
+    margin: 0 5px 10px 0;
+    vertical-align: middle;
+    line-height: 20px;
+    background: #FFF;
+}
+#bd .tb-clearfix:after, #bd .tb-key dl:after, #bd .tb-other:after, #bd .combo ul:after, #bd .scrolling-promo-content:after, .tb-popup-share .tb-tab-hd:after {
+    visibility: hidden;
+    clear: both;
+    content: '';
+    display: block;
+    height: 0;
+}
+#detail .tb-key .tb-stock {
+    position: relative;
+    float: left;
+}
+#bd .tb-amount {
+    line-height: 28px;
+}
+#detail .tb-key .tb-stock span {
+    float: left;
+    margin: 0;
+    padding: 0;
+    width: 48px;
+    height: 26px;
+    font-size: 16px;
+    line-height: 26px;
+    text-align: center;
+    color: #666;
+    border: 1px solid #CCC;
+    outline: 0;
+    background: #FFF;
+    ime-mode: disabled;
+}
+#bd .tb-stock .tb-disable-increase, #bd .tb-stock .tb-disable-increase:hover, #bd .tb-stock .tb-disable-reduce, #bd .tb-stock .tb-disable-reduce:hover {
+    color: #ccc;
+    cursor: not-allowed;
+    background-color: #ededed;
+}
+#bd .tb-stock button, #bd .tb-stock button:hover {
+    display: block;
+    float: left;
+    width: 26px;
+    height: 26px;
+    border: 1px solid #ccc;
+    line-height: 26px;
+    padding: 0;
+    text-align: center;
+    overflow: hidden;
+    background-color: #ededed;
+}
+.tb-iconfont {
+    font-size: 12px;
+    font-style: normal;
+}
+#detail .j-tbmultiterms {
+    margin: 0 0 10px 0;
+}
+.tb-multiterms-step-enabled {
+    color: #333;
+    border: 1px solid #c3c3c3;
+}
+.tb-multiterms-step {
+    text-align: center;
+    padding: 3px 8px;
+    cursor: pointer;
+}
+.tb-multiterms-step {
+    float: left;
+    position: relative;
+    margin: 0 5px 10px 0;
+    vertical-align: middle;
+    line-height: 20px;
+    background: #FFF;
+}
+.tb-action {
+    margin-top: 20px;
+    z-index: 1;
+    position: relative;
+    overflow: hidden;
+}
+.tb-action .tb-btn-buy {
+    margin-right: 9px;
+    float: left;
+}
+#detail .tb-key .tb-action .tb-btn-buy a {
+    color: #E5511D;
+    border-color: #F0CAB6;
+    background: #FFE4D0;
+}
+#detail .tb-key .tb-action .tb-btn-buy a, #detail .tb-key .tb-action .tb-btn-add a, #detail .tb-key .tb-action .tb-btn-wait a {
+    display: block;
+    cursor: pointer;
+    width: 134px;
+    height: 38px;
+    text-align: center;
+    font-family: "Hiragino Sans GB","microsoft yahei",sans-serif;
+    font-size: 16px;
+    line-height: 38px;
+    border-width: 1px;
+    border-style: solid;
+    border-radius: 2px;
+}
+.tb-key .tb-action .tb-btn-add{
+    float: left;
+}
+#detail .tb-key .tb-action .tb-btn-add a {
+    width: 180px;
+    color: #FFF;
+    border-color: #F40;
+    background: #F40;
+
+}
+#detail .tb-key .tb-action .tb-btn-add i {
+    vertical-align: middle;
+    font-size: 18px;
+    font-weight: 400;
+    font-style: normal;
+    margin-right: 10px;
 }
 </style>
 <script>

@@ -54,7 +54,7 @@
                     </div>
                 </div>
                 <div class="form-list form-main-list" v-if="active===2">
-                    
+                    <div class="form-result"><h1 style="font-size:48px;">重置成功</h1></div>
                 </div>
             </form>
         </div>
@@ -143,6 +143,7 @@ export default {
             }
             if(!REG_EAMIL.test(this.email)){
                 _.alert('邮箱格式错误');
+                this.active=0
                 return 
             }
             if(this.password.length <　6 || this.password.length > 16){

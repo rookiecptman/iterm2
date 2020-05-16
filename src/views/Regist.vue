@@ -54,7 +54,7 @@
                     </div>
                 </div>
                 <div class="form-list form-main-list" v-if="active===2">
-                    
+                    <div class="form-result"><h1 style="font-size:48px;">注册成功</h1></div>
                 </div>
             </form>
         </div>
@@ -102,16 +102,8 @@ export default {
         },
         getCodeEmail () {
             let me = this;
-            if (!this.username) {
-                _.alert('用户名不能为空')
-                return
-            }
-            if (!this.password) {
-                _.alert('请输入密码')
-                return
-            }
             if (!this.email) {
-                _.alert('请输入邮箱')
+                this.active=0
                 return
             }
             if(!REG_EAMIL.test(this.email)){
@@ -153,6 +145,7 @@ export default {
             }
             if(!REG_EAMIL.test(this.email)){
                 _.alert('邮箱格式错误');
+                this.active=0
                 return 
             }
             if(this.password.length <　6 || this.password.length > 16){
@@ -263,6 +256,7 @@ export default {
 }
 .form-item /deep/ .verifi-code{
     width: 120px;
+    height: 46px;
 }
 .form-item /deep/ .form-next{
     width: 180px;
@@ -294,5 +288,11 @@ export default {
 }
 .footer-register{
     margin: 0 16%;
+}
+.form-result{
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    width: 100%;
 }
 </style>

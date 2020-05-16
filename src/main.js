@@ -12,7 +12,7 @@ axios.defaults.withCredentials=true
 axios.defaults.headers = {
   "Content-Type": "application/json;charset=UTF-8"
 }
-axios.defaults.baseURL = 'http://localhost:8082'
+axios.defaults.baseURL = 'http://58.87.77.5:8080/'
 Vue.prototype.$axios = axios
 Vue.prototype.$qs = qs
 Vue.prototype.$cookie = VueCookie

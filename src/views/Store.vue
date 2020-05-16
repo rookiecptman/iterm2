@@ -12,7 +12,7 @@
                                 <div class="search">
                                     <form action="#" >
                                         <div class="wraper">
-                                            <el-input type="text" class="inputs" v-model="store" placeholder="请输入要搜索的词" prefix-icon="el-icon-search" suffix-icon="el-icon-camera"></el-input>
+                                            <el-input type="text" class="inputs" placeholder="请输入要搜索的词" prefix-icon="el-icon-search" suffix-icon="el-icon-camera"></el-input>
                                         </div>
                                         <button class="submit icon-btn-search">搜索</button>
                                     </form>    
@@ -50,18 +50,37 @@
                     <div class="m-itemlist">
                         <div class="grid g-clearfix">
                             <div class="items" >
-                                <div class="item j-mouseronverreq item-ad">
+                                <div class="item j-mouseronverreq item-ad" v-for="item of stores" :key="item.index">
                                     <div class="pic-box j-mouseenterleave j-picbox">
                                         <div class="pic-box-inner">
                                             <div class="pic">
-                                                <a href=""></a>
+                                                <a href="/storedetail" class="pic-link">
+                                                    <img :src='getImgUrl(item.url)' alt="" style="width: 220px;height: 220px;">
+                                                </a>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="ctx-box j-mouseenterleave j-iconmorenew">
-                                        <div class="row row-1 g-clearfix"></div>
-                                        <div class="row row-2 title"></div>
-                                        <div class="row row-3 g-clearfix"></div>
+                                        <div class="row row-1 g-clearfix">
+                                            <div class="price g_price g_price-highlight">
+                                                <span>¥</span>
+                                                <strong>{{item.price}}</strong>
+                                            </div>
+                                            <div class="deal-cnt">{{item.count}}人付款</div>
+                                        </div>
+                                        <div class="row row-2 title">
+                                            <a id="J_Itemlist_TLink_585738486118" class="J_ClickStat" >
+                                                {{item.describe}}
+                                            </a>
+                                        </div>
+                                        <div class="row row-3 g-clearfix">
+                                            <div class="shop">
+                                                <a class="shopname J_MouseEneterLeave J_ShopInfo" href="/shop">
+                                                    <span>{{item.uid}}</span>
+                                                </a>
+                                            </div>
+                                            <div class="location">{{item.addr}}</div>
+                                        </div>
                                         <div class="row row-4 g-clearfix"></div>
                                     </div>
                                 </div>
@@ -259,9 +278,68 @@
     height: 20px;
     overflow: hidden;
 }
+.g-clearfix:after, .g-clearfix:before {
+    content: "";
+    display: table;
+}
+.m-itemlist .grid .price {
+    float: left;
+    font-size: 18px;
+}
+.m-itemlist .grid .deal-cnt {
+    float: right;
+}
+.m-itemlist .deal-cnt {
+    color: #888;
+    font-size: 12px;
+}
+.g_price-highlight span {
+    color: #F40;
+}
+.g_price span {
+    margin-right: 3px;
+    color: #F40;
+
+}
+.grid .price strong {
+    font-size: 16px;
+    color: #F40;
+    font-weight: 700;
+}
+.m-itemlist .location {
+    float: right;
+    color: #888;
+}
+.m-itemlist .shopname {
+    color: #888;
+    text-decoration: underline;
+    float: left;
+}
 </style>
 <script>
 export default {
+    data() {
+        return {
+            stores:''
+        }
+    },
     name:'store',
+    created:function(){
+        var data={
+            "page":6,
+            "xth":1
+        }
+        this.$axios.post('/api/goods',JSON.stringify(data)).then(res => {
+            console.log(res)
+            this.stores=res.data.data    
+        }).catch(res => {
+        })
+    },
+    methods:{
+        getImgUrl(item){
+            var url = 'http://58.87.77.5:8080/img/'+item
+            return url
+        }
+    }
 }
 </script>

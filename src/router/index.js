@@ -8,7 +8,7 @@ import User from '../views/User.vue'
 import Shop from '../views/Shop.vue'
 import Store from '../views/Store.vue'
 import StoreDetail from '../views/StoreDetail.vue'
-
+import ShoppingCar from '../views/ShoppingCar.vue'
 
 Vue.use(VueRouter)
 
@@ -52,7 +52,12 @@ Vue.use(VueRouter)
     path: '/storedetail',
     name: 'StoreDetail',
     component: StoreDetail
-  }
+  },
+  {
+    path: '/shoppincar',
+    name: 'ShoppingCar',
+    component: ShoppingCar
+  },
 ]
 
 const router = new VueRouter({
