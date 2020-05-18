@@ -37,7 +37,7 @@
                                     <a href="" class="shop-name-link"></a>
                                 </div>
                                 <div class="shop-rank-wrap">
-                                    <span class="shop-rank"></span>
+                                    <span class="shop-rank">{{stores.uid}}</span>
                                 </div>
                             </div>
                             <div class="shop-service-info">
@@ -77,7 +77,7 @@
                                     <div class="tb-item-info-l">
                                         <div class="tb-gallery">
                                             <div class="tb-booth tb-pic tb-main-pic">
-                                                <img src="../assets/fzu.png" alt="">
+                                                <img :src='getImgUrl(stores.url)' alt="">
                                             </div>
                                         </div>
                                         <div class="tb-social tb-clearfix">
@@ -94,7 +94,7 @@
                                         <div class="tb-property tb-property-x">
                                             <div class="tb-wrap tb-wrap-newshop">
                                                 <div id="j-title" class="tb-title">
-                                                    <h3 class="tb-main-title">会恶化北京河北从胶合板厂我</h3>
+                                                    <h3 class="tb-main-title">{{stores.describe}}</h3>
                                                     <p class="tb-subtitle"></p>
                                                 </div>
                                                 <ul class="tb-meta">
@@ -103,7 +103,7 @@
                                                         <div class="tb-property-cont">
                                                             <strong id="j-strprice">
                                                                 <em class="tb-rmb">¥</em>
-                                                                <em class="tb-rmb-num">181.20-381.80</em>
+                                                                <em class="tb-rmb-num">{{stores.price}}</em>
                                                             </strong>
                                                         </div>
                                                     </li>
@@ -148,14 +148,14 @@
                                                             <dt class="tb-property-type">数量</dt>
                                                             <dd>
                                                                 <span class="tb-stock" id="j-stock">
-                                                                    <button class="tb-reduce tb-iconfont">-</button>
-                                                                    <span>1</span>
-                                                                    <button class="tb-increase tb-iconfont">+</button>
+                                                                    <button class="tb-reduce tb-iconfont" @click="reduce">-</button>
+                                                                    <input type="text" v-model="count" :placeholder="count">
+                                                                    <button class="tb-increase tb-iconfont" @click="increase">+</button>
                                                                     件
                                                                 </span>
                                                                 <em>
                                                                     (库存
-                                                                    <span class="tb-count" id="j-spanstock">1542</span>
+                                                                    <span class="tb-count" id="j-spanstock">{{stores.count}}</span>
                                                                     件)
                                                                 </em>
                                                             </dd>
@@ -657,7 +657,7 @@
 #bd .tb-amount {
     line-height: 28px;
 }
-#detail .tb-key .tb-stock span {
+#detail .tb-key .tb-stock input {
     float: left;
     margin: 0;
     padding: 0;
@@ -681,7 +681,7 @@
     display: block;
     float: left;
     width: 26px;
-    height: 26px;
+    height: 28px;
     border: 1px solid #ccc;
     line-height: 26px;
     padding: 0;
@@ -762,5 +762,31 @@
 <script>
 export default {
     name:'storedetail',
+    data() {
+        return{
+            stores:'',
+            count:1
+        }
+    },
+    created:function(){
+        this.stores=this.$route.query
+        console.log(this.stores)
+    },
+    methods:{
+        getImgUrl(item){
+            var url = 'http://58.87.77.5:8080/img/'+item
+            return url
+        },
+        reduce(){
+            if(this.count>1){
+                this.count--
+            }
+        },
+        increase(){
+            if(this.count<this.stores.count){
+                this.count++
+            }
+        }
+    }
 }
 </script>

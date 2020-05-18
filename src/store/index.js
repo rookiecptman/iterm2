@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import {COM_SHOW_ALERT,COM_ALERT_MSG,COM_LOGIN_INFO} from './types'
+import {COM_SHOW_ALERT,COM_ALERT_MSG,COM_LOGIN_INFO,COM_MERCHANT_INFO} from './types'
 
 Vue.use(Vuex)
 
@@ -9,9 +9,10 @@ export default new Vuex.Store({
     alertMsg: '', //弹框信息
     showAlert: false, //弹框显隐
     loginInfo:{
+        merchant:false,
         state:false,
         token:'',
-        user:''
+        user:'',
     },
   },
   mutations: {
@@ -23,6 +24,9 @@ export default new Vuex.Store({
     },
     [COM_LOGIN_INFO](state, obj) {
       state.loginInfo = obj
+    },
+    [COM_MERCHANT_INFO](state, status){
+      state.loginInfo.merchant = status
     }
   },
   actions: {
@@ -34,6 +38,9 @@ export default new Vuex.Store({
     },
     loginInfo({ commit }, obj){
       commit(COM_LOGIN_INFO, obj)
+    },
+    merchant({commit}, status){
+      commit(COM_MERCHANT_INFO ,status)
     }
   },
   getters: {

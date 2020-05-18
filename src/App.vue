@@ -13,7 +13,8 @@
             <ul class="site-nav-bd-l">
                 <li class="menu">
                     <div class="menu-hd">
-                        <a href="/login" class="h">{{user}}</a>
+                        <a href="/login" class="h" v-if="!haveinfo">{{user}}</a>
+                        <a href="/usermess" class="h" v-if="haveinfo">{{user}}</a>
                         <a href="/regist" v-if="!haveinfo">免费注册</a>
                     </div>
                 </li>

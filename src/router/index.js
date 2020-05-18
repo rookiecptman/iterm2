@@ -9,6 +9,7 @@ import Shop from '../views/Shop.vue'
 import Store from '../views/Store.vue'
 import StoreDetail from '../views/StoreDetail.vue'
 import ShoppingCar from '../views/ShoppingCar.vue'
+import Collect from '../views/Collect.vue'
 
 Vue.use(VueRouter)
 
@@ -54,9 +55,14 @@ Vue.use(VueRouter)
     component: StoreDetail
   },
   {
-    path: '/shoppincar',
+    path: '/shoppingcar',
     name: 'ShoppingCar',
     component: ShoppingCar
+  },
+  {
+    path: '/collect',
+    name: 'Collect',
+    component: Collect
   },
 ]
 

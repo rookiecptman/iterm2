@@ -75,6 +75,7 @@ export default {
                         this.$router.push('/');//跳转到主页界面
                     },1000)
                     _.loginInfo({
+                        merchant:false,
                         state:true,
                         token:res.data.data.token,
                         user:data.email

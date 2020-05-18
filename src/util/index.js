@@ -12,3 +12,7 @@ export function alert(str) {
 export function loginInfo(obj) {
     store.dispatch('loginInfo', obj);
 }
+
+export function merchant(state){
+    store.dispatch('merchant',state)
+}

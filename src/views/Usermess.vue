@@ -97,6 +97,9 @@
                                 <dd><a href="">已买的宝贝</a></dd>
                                 <dd><a href="">我的收藏</a></dd>
                                 <dd><a href="">购买过的店铺</a></dd>
+                                <dd><a href="/shop">我的店铺</a></dd>
+                                <dd><a href="">上架商品</a></dd>
+                                <dd><a href="">下架商品</a></dd>
                             </dl>
                         </div>
                     </aside>
@@ -368,6 +371,18 @@
 <script>
 export default {
     name:'usermess',
-
+    data(){
+        return{
+            userinfo:{
+                user:'',
+                merchant:''
+            }
+        }
+    },
+    created:function(){
+        this.userinfo.user=this.$store.state.loginInfo.user
+        this.userinfo.merchant=this.$store.state.loginInfo.merchant
+        console.log(this.userinfo)
+    },
 }
 </script>

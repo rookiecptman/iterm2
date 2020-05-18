@@ -12,7 +12,14 @@
                                 <div class="search">
                                     <form action="#" >
                                         <div class="wraper">
-                                            <el-input type="text" class="inputs" placeholder="请输入要搜索的词" prefix-icon="el-icon-search" suffix-icon="el-icon-camera"></el-input>
+                                            <div class="inputs inputs-imgsearch">
+                                                <div class="search-combobox" id="ks-component499">
+                                                    <div class="search-combobox-input-wrap">
+                                                        <input class="search-combobox-input" id="q" placeholder="请输入要搜索的词">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                           
                                         </div>
                                         <button class="submit icon-btn-search">搜索</button>
                                     </form>    
@@ -54,7 +61,7 @@
                                     <div class="pic-box j-mouseenterleave j-picbox">
                                         <div class="pic-box-inner">
                                             <div class="pic">
-                                                <a href="/storedetail" class="pic-link">
+                                                <a class="pic-link" @click="toDetail(item)" >
                                                     <img :src='getImgUrl(item.url)' alt="" style="width: 220px;height: 220px;">
                                                 </a>
                                             </div>
@@ -111,7 +118,7 @@
 }
 .header-inner{
     overflow: hidden;
-    vertical-align: middle;
+    
 }
 .m-header .logo {
     float: left;
@@ -123,25 +130,42 @@
 }
 .m-header .search {
     float: right;
-    margin-top: 4px;
-    min-height: 35px;
+    margin-top: 24px;
+    height: 35px;
 }
 .m-header .search .wraper {
     float: left;
-    border: solid 1px #f50;
+    border: solid 2px #f50;
     border-right: none;
-    height: 48px;
+    height: 31px;
 }
-.m-header .search /deep/ .inputs {
+.response-normal .m-header .search .inputs {
+    width: 530px;
+}
+.m-header .search .inputs {
     float: left;
     position: relative;
+}
+.search-combobox {
+    font-size: 12px;
+}
+.search-combobox-input-wrap {
+    vertical-align: middle;
+    position: relative;
+}
+.m-header .search .inputs .search-combobox-input {
+    height: 31px;
+    border: none 0;
+    outline: 0;
+    font-size: 14px;
+    padding-left: 5px;
     width: 580px;
 }
 .m-header .search .submit {
     float: left;
-    width: 100px;
-    height: 50px;
-    border: solid 2px #f50;
+    width: 80px;
+    height: 35px;
+    border: none;
     cursor: pointer;
 }
 .icon-btn-search{
@@ -326,7 +350,7 @@ export default {
     name:'store',
     created:function(){
         var data={
-            "page":6,
+            "page":8,
             "xth":1
         }
         this.$axios.post('/api/goods',JSON.stringify(data)).then(res => {
@@ -339,7 +363,11 @@ export default {
         getImgUrl(item){
             var url = 'http://58.87.77.5:8080/img/'+item
             return url
+        },
+        toDetail(item){
+            this.$router.push({path:'/storedetail',query:item})
         }
+
     }
 }
 </script>
