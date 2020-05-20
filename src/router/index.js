@@ -9,8 +9,9 @@ import Shop from '../views/Shop.vue'
 import Store from '../views/Store.vue'
 import StoreDetail from '../views/StoreDetail.vue'
 import ShoppingCar from '../views/ShoppingCar.vue'
-import Collect from '../views/Collect.vue'
-
+import Collectstore from '../views/Collectstore.vue'
+import Collectshop from '../views/Collectshop.vue'
+import Chat from '../views/Chat.vue'
 Vue.use(VueRouter)
 
   const routes = [
@@ -60,9 +61,19 @@ Vue.use(VueRouter)
     component: ShoppingCar
   },
   {
-    path: '/collect',
-    name: 'Collect',
-    component: Collect
+    path: '/collectstore',
+    name: 'Collectstore',
+    component: Collectstore
+  },
+  {
+    path: '/collectshop',
+    name: 'Collectshop',
+    component: Collectshop
+  },
+  {
+    path: '/chat',
+    name: 'Chat',
+    component: Chat
   },
 ]
 

@@ -279,13 +279,14 @@
     height: 30px;
     background-color: #f40;
     color: #fff;
-    margin-left: -1px;
+    margin: 0 0 0 -1px;
 }
 .search-button.secondary {
     background-color: #ffe4d0;
     color: #f40;
     border: 1px solid #ffb086;
     margin-left: 3px;
+    margin: 0  0  0 3px  ;
 }
 .search-panel-fields {
     height: 30px;
