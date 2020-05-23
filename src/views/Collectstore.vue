@@ -56,15 +56,15 @@
                     </div>
                     <div id="fav-list">
                         <ul class="img-item-list J_FavList clearfix">                   
-                            <li class="J_FavListItem g-i-item fav-item  " data-id="610791366155" data-ownerid="810322448" data-spm="">
+                            <li class="J_FavListItem g-i-item fav-item " v-for="item of goods" :key="item.index">
                                 <div class="img-controller-box J_FavImgController">
                                     <div class="img-controller-img-box">
-                                        <a href="//item.taobao.com/item.htm?id=610791366155&amp;_u=t2dmg8j26111" class="img-controller-img-link" target="_blank" data-spm="d4919233" title="大祥哥来了 2019年份博若莱新酒弗伦特大区级/玛丽娜村庄级 750ml">              
-                                            <img class="img-controller-img" src="//img.alicdn.com/bao/uploaded/i2/810322448/O1CN019zctDN1TxE9N3IXqq_!!810322448.jpg_160x160xz.jpg" alt="大祥哥来了 2019年份博若莱新酒弗伦特大区级/玛丽娜村庄级 750ml">
+                                        <a href="#" class="img-controller-img-link" :title="item.describe">              
+                                            <img class="img-controller-img" :src='getImgUrl(item.url)' :alt="item.describe">
                                         </a>
                                     </div>
-                                    <div class="delete-box" data-spm="">
-                                        <div class="delete-btn J_DeleteItem" title="删除宝贝">
+                                    <div class="delete-box" >
+                                        <div class="delete-btn J_DeleteItem" title="删除宝贝" @click="deleteStore(item.gid)">
                                             <i class="el-icon-delete-solid"></i>
                                         </div>
                                     </div>
@@ -77,13 +77,13 @@
                                     </div>
                                 </div>
                                 <div class="img-item-title">
-                                    <a class="img-item-title-link" title="大祥哥来了 2019年份博若莱新酒弗伦特大区级/玛丽娜村庄级 750ml" target="_blank" href="//item.taobao.com/item.htm?id=610791366155&amp;_u=t2dmg8j26111" data-spm="">大祥哥来了 2019年份博若莱新酒弗伦特大区级/玛丽娜村庄级 750ml</a>
+                                    <a class="img-item-title-link" href="#" >{{item.describe}}</a>
                                 </div>
                                 <div class="price-container">
                                     <div class="g_price-box">
                                         <div class="g_price ">                                  
                                             <span>¥</span>
-                                            <strong>98.00</strong>           
+                                            <strong>{{item.price}}</strong>           
                                          </div>
                                     </div>
                                 </div>                              
@@ -125,9 +125,6 @@
 }
 #fav-tab-bd .fav-logo img {
     margin-top: 16px;
-}
-
-element.style {
 }
 #fav-tab-bd .album-page:link, #fav-tab-bd .album-page:visited, #fav-tab-bd .buyed-page:link, #fav-tab-bd .buyed-page:visited, #fav-tab-bd .cornucopia-page:link, #fav-tab-bd .cornucopia-page:visited, #fav-tab-bd .item-page:link, #fav-tab-bd .item-page:visited, #fav-tab-bd .shop-page:link, #fav-tab-bd .shop-page:visited, #fav-tab-bd .tab-link:link, #fav-tab-bd .tab-link:visited, #fav-tab-bd .uzhan-page:link, #fav-tab-bd .uzhan-page:visited {
     display: block;
@@ -178,7 +175,7 @@ element.style {
     border: 0 none;
     margin: 0 0;
 }
-.search-combobox {
+#J_TSearchForm .search-combobox {
     font-size: 12px;
     margin: 0;
 }
@@ -370,5 +367,32 @@ element.style {
 <script>
 export default {
     name:'collectstore',
+    data(){
+        return{
+            goods:''
+        }
+    },
+    created:function(){
+        this.$axios.get('/api/collect').then((res)=>{
+            console.log(res)
+            this.goods=res.data.data
+        }).catch(err=>{
+
+        })
+    },
+    methods:{
+        getImgUrl(item){
+            var url = 'http://58.87.77.5:8080/img/'+item
+            return url
+        },
+        deleteStore(item){
+            this.$axios.delete('/api/collect/'+item).then((res)=>{
+                console.log(res)
+                this.$router.push('/collectstore')
+            }).catch(err=>{
+
+            })
+        }
+    }
 }
 </script>

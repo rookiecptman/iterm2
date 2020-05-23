@@ -134,8 +134,8 @@
                             <div class="member-logout j-memberlogout" v-if="haveinfo">
                                 <a href="/store">商品</a>
                                 <a href="/reset">重置</a>
-                                <button @click="openshop" v-if="!merchant">开店</button>
-                                <a href="/shop" v-if="merchant" >进店</a>
+                                <a href="/merchant" v-if="!ismerchant" >开店</a>
+                                <a href="/shop" v-if="ismerchant" >进店</a>
                             </div>
                             <div class="member-logout j-memberlogout" v-if="!haveinfo">
                                 <a href="/login">登录</a>
@@ -438,6 +438,7 @@
 }
 .search-button .el-button{
     height: 48px;
+    width: 100%;
 }
 .fzu-qr-wrapper{
     position: absolute;
@@ -614,20 +615,6 @@ ol, ul {
     margin-top: 8px;
 }
 .member-logout a {
-    float: left;
-    line-height: 25px;
-    width: 75px;
-    margin-right: 15px;
-    text-align: center;
-    color: #FFF;
-    background-image: linear-gradient(to right,#ff5000 0,#ff6f06 100%);
-    background-repeat: repeat-x;
-    border-radius: 4px;
-    background-clip: padding-box;
-    font-size: 14px;
-    font-weight: 700;
-}
-.member-logout button{
     float: left;
     line-height: 25px;
     width: 75px;
@@ -828,20 +815,25 @@ export default {
             merchant:state => {
                 return state.loginInfo.merchant 
             },
+            ismerchant:state => {
+                return state.loginInfo.ismerchant 
+            },
         }),
     },
     created:function(){
-        if(this.$cookie.get('merchant')){
+        if(this.$cookie.get('merchant')!=null&&this.$cookie.get('merchant')){
             _.loginInfo({
-                merchant:true,
+                ismerchant:true,
+                merchant:this.$cookie.get('merchant'),
                 state:true,
                 token:this.$cookie.get('token'),
                 user:this.$cookie.get('user')
             })
         }
-        else if(this.$cookie.get('token')){
+        else if(this.$cookie.get('token')!=null&&this.$cookie.get('token')){
             _.loginInfo({
-                merchant:false,
+                ismerchant:false,
+                merchant:'',
                 state:true,
                 token:this.$cookie.get('token'),
                 user:this.$cookie.get('user')
@@ -849,17 +841,7 @@ export default {
         }
     },
     methods:{
-        openshop:function(){
-            console.log(this.$axios.defaults)
-            this.$axios.put('/api/merchant')
-            .then(res => {
-                _.alert('申请成功');
-                this.$cookie.set("merchant",true,"1d")
-                _.merchant(true)
-            })
-            .catch(err => {
-            })
-        }
+
     }
 }
 

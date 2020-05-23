@@ -74,16 +74,32 @@ export default {
                     setTimeout(()=>{
                         this.$router.push('/');//跳转到主页界面
                     },1000)
-                    _.loginInfo({
-                        merchant:false,
+                    if(res.data.data.name){
+                        _.loginInfo({
+                        ismerchant:true,
+                        merchant:res.data.data.name,
                         state:true,
                         token:res.data.data.token,
                         user:data.email
-                    })
-                    this.$cookie.set("state",true,"1d")
-                    this.$cookie.set("token",res.data.data.token,"1d")
-                    this.$cookie.set("user",data.email,"1d")
-                    console.log(res)
+                        })
+                        this.$cookie.set("merchant",res.data.data.name,"1d")
+                        this.$cookie.set("state",true,"1d")
+                        this.$cookie.set("token",res.data.data.token,"1d")
+                        this.$cookie.set("user",data.email,"1d")
+                    }
+                    else{
+                        _.loginInfo({
+                        ismerchant:false,
+                        merchant:'',
+                        state:true,
+                        token:res.data.data.token,
+                        user:data.email
+                        })
+                        this.$cookie.set("state",true,"1d")
+                        this.$cookie.set("token",res.data.data.token,"1d")
+                        this.$cookie.set("user",data.email,"1d")
+                        console.log(res)
+                    }
                 }else{
                     
                     _.alert(res.data.msg);

@@ -15,6 +15,7 @@
                     <div class="menu-hd">
                         <a href="/login" class="h" v-if="!haveinfo">{{user}}</a>
                         <a href="/usermess" class="h" v-if="haveinfo">{{user}}</a>
+                        <a @click="quit" v-if="haveinfo">注销</a>
                         <a href="/regist" v-if="!haveinfo">免费注册</a>
                     </div>
                 </li>
@@ -24,6 +25,8 @@
                     <div class="menu-hd">
                         <a href="/" class="h">首页</a>
                         <a href="/usermess">我的FZU</a>
+                        <a href="/shoppingcar">购物车</a>
+                        <a href="/collectstore">收藏夹</a>
                     </div>
                 </li>
             </ul>
@@ -42,8 +45,7 @@ export default {
         }
     },
     name: 'app',
-    computed:{
-        ...mapState({
+    computed:mapState({
             loginInfo: state =>{
                 return state.loginInfo
             },
@@ -61,14 +63,18 @@ export default {
                     return "亲，请登录"
                 }
             },
+            ismerchant:state => {
+                return state.loginInfo.ismerchant 
+            },
             ...mapGetters([
                 'showAlert'
             ])
-        }),
-    },
+    }),
     created:function(){
-        if(this.$cookie.get('token')){
+        if(this.$cookie.get('merchant')!=null&&this.$cookie.get('merchant')){
             _.loginInfo({
+                ismerchant:true,
+                merchant:this.$cookie.get('merchant'),
                 state:true,
                 token:this.$cookie.get('token'),
                 user:this.$cookie.get('user')
@@ -77,6 +83,34 @@ export default {
                 "Content-Type": "application/json;charset=UTF-8",
                 "token": this.$cookie.get('token')
             }
+        }
+        else if(this.$cookie.get('token')!=null&&this.$cookie.get('token')){
+            _.loginInfo({
+                ismerchant:false,
+                merchant:'',
+                state:true,
+                token:this.$cookie.get('token'),
+                user:this.$cookie.get('user')
+            })
+            this.$axios.defaults.headers = {
+                "Content-Type": "application/json;charset=UTF-8",
+                "token": this.$cookie.get('token')
+            }
+        }
+    },
+    methods:{
+        quit:function(){
+            this.$cookie.remove("state")
+            this.$cookie.remove("token")
+            this.$cookie.remove("user")
+            this.$cookie.remove("merchant")
+            _.loginInfo({
+                ismerchant:false,
+                merchant:'',
+                state:false,
+                token:'',
+                user:''
+            })
         }
     }
 }

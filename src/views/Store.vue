@@ -98,6 +98,16 @@
             </div>
             <div class="grid-right"></div>
         </div>
+        <div class="store-footer">
+            <el-pagination
+                background
+                layout="prev, pager, next"
+                :page-count="count"
+                :current-page="xth"
+                @current-change="changeXth"
+                >
+            </el-pagination>
+        </div>
     </div>
 </template>
 <style>
@@ -173,6 +183,7 @@
     color: #fff;
     font-size: 18px;
     background-color: #f50;
+    margin: 0;
 }
 .grid-total:after, .grid-total:before {
     content: "";
@@ -339,23 +350,34 @@
     text-decoration: underline;
     float: left;
 }
+.store-footer{
+    width:1190px ;
+    margin: 40px auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
 </style>
 <script>
 export default {
     data() {
         return {
-            stores:''
+            stores:'',
+            xth:1,
+            count:0
         }
     },
     name:'store',
     created:function(){
-        var data={
-            "page":8,
-            "xth":1
-        }
-        this.$axios.post('/api/goods',JSON.stringify(data)).then(res => {
+        this.$axios.get(this.getUrl(this.$data.xth)).then(res => {
             console.log(res)
             this.stores=res.data.data    
+        }).catch(res => {
+        })
+        this.$axios.get('/api/count').then(res => {
+            console.log(res)
+            this.count=Math.ceil(res.data.data.count/8) 
+            console.log(this.count)
         }).catch(res => {
         })
     },
@@ -366,6 +388,19 @@ export default {
         },
         toDetail(item){
             this.$router.push({path:'/storedetail',query:item})
+        },
+        getUrl(item){
+            var url = 'http://58.87.77.5:8080/api/goods?page=8&xth='+item
+            return url
+        },
+        changeXth(e){
+            console.log(e)
+            this.xth=e
+            this.$axios.get(this.getUrl(this.$data.xth)).then(res => {
+                console.log(res)
+                this.stores=res.data.data    
+            }).catch(res => {
+        })
         }
 
     }

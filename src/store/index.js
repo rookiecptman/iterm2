@@ -9,7 +9,8 @@ export default new Vuex.Store({
     alertMsg: '', //弹框信息
     showAlert: false, //弹框显隐
     loginInfo:{
-        merchant:false,
+        ismerchant:false,
+        merchant:'',
         state:false,
         token:'',
         user:'',

@@ -12,6 +12,9 @@ import ShoppingCar from '../views/ShoppingCar.vue'
 import Collectstore from '../views/Collectstore.vue'
 import Collectshop from '../views/Collectshop.vue'
 import Chat from '../views/Chat.vue'
+import Merchant from '../views/Merchant.vue'
+import Uploadstore from '../views/Uploadstore.vue'
+
 Vue.use(VueRouter)
 
   const routes = [
@@ -74,6 +77,16 @@ Vue.use(VueRouter)
     path: '/chat',
     name: 'Chat',
     component: Chat
+  },
+  {
+    path: '/merchant',
+    name: 'Merchant',
+    component: Merchant
+  },
+  {
+    path: '/uploadstore',
+    name: 'Uploadstore',
+    component: Uploadstore
   },
 ]
 

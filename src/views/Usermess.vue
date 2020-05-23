@@ -28,7 +28,7 @@
                                         <div class="s-baseinfo">
                                             <img src="../assets/avatar.png" alt="" class="s-avatar">
                                             <div class="s-name">
-                                                <span>xxxx</span>
+                                                <span>{{this.userinfo.user}}</span>
                                             </div>
                                         </div>
                                         <ul class="s-my-stuffs">
@@ -93,13 +93,12 @@
                         <div class="mt-menu-tree">
                             <dl class="mt-menu-item">
                                 <dt>全部功能</dt>
-                                <dd><a href="">我的购物车</a></dd>
+                                <dd><a href="/shoppingcar">我的购物车</a></dd>
                                 <dd><a href="">已买的宝贝</a></dd>
-                                <dd><a href="">我的收藏</a></dd>
+                                <dd><a href="/collectstore">我的收藏</a></dd>
                                 <dd><a href="">购买过的店铺</a></dd>
-                                <dd><a href="/shop">我的店铺</a></dd>
-                                <dd><a href="">上架商品</a></dd>
-                                <dd><a href="">下架商品</a></dd>
+                                <dd v-if="userinfo.ismerchant"><a href="" @click="toShop(userinfo.merchant)">我的店铺</a></dd>
+                                <dd v-if="userinfo.ismerchant"><a href="/uploadstore">上架商品</a></dd>
                             </dl>
                         </div>
                     </aside>
@@ -375,14 +374,26 @@ export default {
         return{
             userinfo:{
                 user:'',
-                merchant:''
+                merchant:'',
+                ismerchant:false
             }
         }
     },
     created:function(){
-        this.userinfo.user=this.$store.state.loginInfo.user
-        this.userinfo.merchant=this.$store.state.loginInfo.merchant
-        console.log(this.userinfo)
+        if(!this.$cookie.get('token')){
+            this.$router.push({path:'/login'})
+        }
+        else{
+            this.userinfo.user=this.$store.state.loginInfo.user
+            this.userinfo.merchant=this.$cookie.get('merchat')
+            this.userinfo.ismerchant=this.$store.state.loginInfo.ismerchant
+            console.log(this.userinfo)
+        }
     },
+    methods:{
+        toShop(item){
+            this.$router.push({path:'/shop',query:{item}})
+        }
+    }
 }
 </script>

@@ -77,41 +77,16 @@
                                             </a>
                                             <span class="ww-light ww-small" data-nick="shanghai4989" data-icon="small" data-spm="$!spmWangWang">
                                                 <a href="" target="_blank" class="ww-inline ww-online" title="点此可以直接和卖家交流选好的宝贝，或相互交流网购体验，还支持语音视频噢。">
-                                                    <span>旺旺在线</span>
+                                                    <span></span>
                                                 </a>
                                             </span>
                                         </div>
-                                        <div>
-                                            <div class="note J_Note_Box">
-                                                <div title="" class="J_NoteValue J_SetNoteItem  note-show-nonote note-show">
-                                                    <i class="note-show-icon"></i>
-                                                        添加备注                            
-                                                </div>
-                                                <div class=" note-edit hidden clearfix">
-                                                    <input class="J_NoteInput note-input" placeholder="输入备注" value="">
-                                                    <button class="note-btn J_Note_Btn" type="submit">确定</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div>
-                                            <div class="shop-add-favsclass J_AddFavsClass_One">
-                                                <i class="shop-add-favsclass-icon"></i>
-                                                <span class="J_AddFavsClass_OneTxt" title="">
-                                                    添加标签分类
-                                                </span>
-                                            </div>
-                                        </div>
                                     </div>
                                     <div>
-                                        <div tabindex="-1" class="more-shop">
-                                            <a class="more-shop-link" href="/shop_gallery_n.htm?id=36848177&amp;cat=6&amp;sellerId=143074663&amp;tab=0" target="_blank" data-spm="">
-                                                相似店铺
-                                            </a>
-                                        </div>
                                         <div class="shop-tools">
                                             <ul class="shop-tools-list clearfix">
-                                                <li class="shop-tools-item shop-tools-item-top J_SetTopItem" title="置顶">顶</li>
-                                                <li class="shop-tools-item shop-tools-item-del J_DeleteItem" title="删除">删</li>
+                                                <li class="shop-tools-item shop-tools-item-top J_SetTopItem" title="置顶"></li>
+                                                <li class="shop-tools-item shop-tools-item-del J_DeleteItem" title="删除"><i class="el-icon-delete"></i></li>
                                             </ul>
                                         </div>
                                     </div>
@@ -123,7 +98,6 @@
                                             <div class="J_SideTab discount " pointname="tbscj.18.35" data-spm-click="gostr=/tbscj;locaid=d1discountTab" data-item-count="508">优惠 <em>508</em></div>
                                             <div class="J_SideTab hotSell " pointname="tbscj.18.35" data-spm-click="gostr=/tbscj;locaid=d1hotSellTab" data-item-count="510">热销 <em>510</em></div>
                                             <div class="J_SideTab preUpShelf disabled " data-spm-click="gostr=/tbscj;locaid=d1reUpShelfTab" data-item-count="0">即将上架 <em>0</em></div>
-                                            <div class="J_SideTab similar " pointname="" data-item-count="0">相似店铺 <em>0</em></div>
                                             <div class="J_SideTab findGoods" data-spm-click="gostr=/tbscj;locaid=d1reFindGoodsTab">发现好货</div>
                                         </div>
                                         <a tabindex="-1" class="item-list-more-btn J_PopRecTrigLink J_NewPoint" href="/shop_gallery_n.htm?id=36848177&amp;cat=4&amp;sellerId=143074663&amp;tab=0" target="_blank" pointname="tbscj.18.30" data-spm="">
@@ -143,10 +117,6 @@
                                                         <span>¥</span>
                                                         <strong>28.80</strong>
                                                     </div>
-                                                    <div class="g_price g_price-original">  
-                                                        <span>¥</span>
-                                                        <span>36.00</span>
-                                                    </div>
                                                 </div>
                                             </li>   
                                         </ul>
@@ -161,6 +131,10 @@
     </div>
 </template>
 <style >
+.img-item-list {
+    margin-right: 0;
+    overflow: hidden;
+}
 .fav-shop {
     border-bottom: #e5e5e5 1px solid;
     position: relative;
@@ -205,6 +179,7 @@
 }
 .fav-shop .shop-name-link {
     font-size: 14px;
+    font-weight: 700;
     color: #3c3c3c;
 }
 .fav-shop .seller {
@@ -215,6 +190,115 @@
 }
 .fav-shop .seller-link {
     color: #3a3a3a;
+    font-size: 12px;
+}
+.fav-shop .shop-card .shop-tools {
+    position: absolute;
+    top: 20px;
+    right: 0;
+    width: 50px;
+    height: 27px;
+}
+.fav-shop .shop-card .shop-tools-list {
+    width: 50px;
+    background-color: #fff;
+    overflow: hidden;
+}
+.fav-shop .shop-card .shop-tools-item {
+    text-align: center;
+    height: 24px;
+    line-height: 24px;
+    cursor: pointer;
+    width: 25px;
+    float: left;
+    overflow: hidden;
+}
+.fav-shop .item-list-box {
+    float: right;
+    width: 890px;
+}
+.fav-shop .item-list-box-tools {
+    padding-top: 20px;
+    padding-bottom: 16px;
+    overflow: hidden;
+}
+.fav-shop .item-list-box-tab {
+    float: left;
+    border: #dcdcdc 1px solid;
+    font-size: 14px;
+}
+.fav-shop .item-list-more-btn {
+    float: right;
+    color: #6c6c6c;
+    padding-right: 10px;
+    font-size: 12px;
+}
+.fav-shop .discount-select .discount, .fav-shop .hotSell-select .hotSell, .fav-shop .latestUp-select .latestUp, .fav-shop .preUpShelf-select .preUpShelf, .fav-shop .similar-select .similar {
+    background-color: #f3f3f3;
+    color: #ff4200;
+}
+.fav-shop .discount, .fav-shop .hotSell, .fav-shop .latestUp {
+    border-right: #dcdcdc 1px solid;
+}
+.fav-shop .discount, .fav-shop .findGoods, .fav-shop .hotSell, .fav-shop .latestUp, .fav-shop .preUpShelf, .fav-shop .similar {
+    float: left;
+    padding: 0 13px;
+    height: 26px;
+    line-height: 26px;
+    text-align: center;
+    color: #6c6c6c;
+    cursor: pointer;
+}
+.fav-shop .disabled, .fav-shop .disabled:hover {
+    color: #9c9c9c;
+    cursor: not-allowed;
+}
+.fav-shop .findGoods {
+    border-left: #dcdcdc 1px solid;
+    width: 60px;
+    overflow: hidden;
+}
+.fav-shop .item-list {
+    position: relative;
+}
+.fav-shop .item-list-discount-ul, .fav-shop .item-list-findGoods-ul, .fav-shop .item-list-hotSell-ul, .fav-shop .item-list-latestUp-ul, .fav-shop .item-list-preUpShelf-ul, .fav-shop .item-list-similar-ul {
+    margin-right: -40px;
+    height: 205px;
+    overflow: hidden;
+    display: block;
+}
+.fav-shop .discount-select .item-list-discount-ul, .fav-shop .hotSell-select .item-list-hotSell-ul, .fav-shop .latestUp-select .item-list-latestUp-ul, .fav-shop .preUpShelf-select .item-list-preUpShelf-ul, .fav-shop .promotionItemTab-select .item-list-promotionItemTab-ul, .fav-shop .tbPromotionItemTab-select .item-list-tbPromotionItemTab-ul {
+    margin-bottom: 16px;
+    zoom: 1;
+    position: relative;
+}
+.fav-shop .item-box {
+    float: left;
+    text-align: center;
+    height: 205px;
+    position: relative;
+}
+.fav-shop .item {
+    width: 148px;
+    height: 148px;
+    border: #eee 1px solid;
+    margin-bottom: 8px;
+}
+.fav-shop .g_price-box {
+    height: 25px;
+    line-height: 25px;
+    overflow: hidden;
+}
+.fav-shop .item-img {
+    vertical-align: middle;
+    display: inline-block;
+    max-width: 100%;
+    max-height: 100%;
+}
+#mercury .g_price-box div {
+    display: inline;
+    color: #6c6c6c;
+    text-align: center;
 }
 </style>
 <script>

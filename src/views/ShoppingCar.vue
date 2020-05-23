@@ -7,7 +7,7 @@
                 </h1>
                 <div class="search" id="J_Search" role="search">
                     <div class="search-panel search-hp-panel ks-switchable-content">
-                        <form target="_top" action="//s.taobao.com/search" name="search" id="J_TSearchForm" class="">
+                        <form target="_top" action="//s.taobao.com/search" name="search"  class="">
                             <div class="search-button">
                                 <button class="btn-search" type="submit">搜 索</button>
                             </div>
@@ -270,6 +270,7 @@
     color: #fff;
     font-size: 16px;
     background-color: #f40;
+    margin: 0;
 }
 .cart {
     min-height: 400px;

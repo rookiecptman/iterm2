@@ -27,17 +27,17 @@
                                     </form>
                                 </div>
                                 <div class="search-bottom">
-                                    <a href="">收藏店铺</a>
+                                    <a href="#" @click="collectShop">收藏店铺</a>
                                 </div>
                             </div>
                         </div>
                         <div class="shop-summary j-tshopsummary">
                             <div class="shop-name">
                                 <div class="shop-name-wrap">
-                                    <a href="" class="shop-name-link"></a>
+                                    <a href="#" class="shop-name-link" @click="toShop(stores.merchant)">{{stores.merchant}}</a>
                                 </div>
                                 <div class="shop-rank-wrap">
-                                    <span class="shop-rank">{{stores.uid}}</span>
+                                    <span class="shop-rank"></span>
                                 </div>
                             </div>
                             <div class="shop-service-info">
@@ -83,7 +83,7 @@
                                         <div class="tb-social tb-clearfix">
                                             <ul>
                                                 <li class="tb-social-fav">
-                                                    <a href="">
+                                                    <a href="#" @click="collectStore">
                                                         <i class="el-icon-star-on tb-icon"></i>
                                                         收藏宝贝</a>
                                                 </li>
@@ -178,10 +178,10 @@
                                                         </dl>
                                                         <div class="tb-action tb-clearfix" id="j-juvalid">
                                                             <div class="tb-btn-buy">
-                                                                <a href="" class="j-linkbuy">立即购买</a>
+                                                                <a href="#" class="j-linkbuy" >立即购买</a>
                                                             </div>
                                                             <div class="tb-btn-add">
-                                                                <a href="" class="j-linkadd">
+                                                                <a href="#" class="j-linkadd" @click="joinShoppingCar">
                                                                     <i class="el-icon-shopping-cart-2"></i>
                                                                     加入购物车
                                                                 </a>
@@ -243,7 +243,7 @@
     height: 44px;
     float: left;
 }
-.tb-header-search {
+.logo-search .tb-header-search {
     position: absolute;
     top: 12px;
     right: 0;
@@ -295,7 +295,7 @@
     overflow: hidden;
     background: #f40;
 }
-.search-combobox {
+.search-panel-fields .search-combobox {
     margin-left: 2px;
     margin-right: 0;
     margin-top: 2px;
@@ -689,6 +689,7 @@
     text-align: center;
     overflow: hidden;
     background-color: #ededed;
+    margin: 0;
 }
 .tb-iconfont {
     font-size: 12px;
@@ -787,7 +788,44 @@ export default {
             if(this.count<this.stores.count){
                 this.count++
             }
-        }
+        },
+        toShop(item){
+            this.$router.push({path:'/shop',query:{item}})
+        },
+        collectStore(){
+            let data={
+                "gid":this.stores.gid
+            }
+            this.$axios.post('/api/collect',JSON.stringify(data))
+            .then(res => {
+                console.log(res)
+            })
+            .catch(res => {
+            });
+        },
+        joinShoppingCar(){
+            let data={
+                "gid":this.stores.gid,
+                "num":this.count
+            }
+            this.$axios.post('/api/cart',JSON.stringify(data))
+            .then(res => {
+                console.log(res)
+            })
+            .catch(res => {
+            });
+        },
+        collectShop(){
+            let data={
+                "name":this.stores.merchant
+            }
+            this.$axios.post('/api/favorite',JSON.stringify(data))
+            .then(res => {
+                console.log(res)
+            })
+            .catch(res => {
+            });
+        },
     }
 }
 </script>

@@ -27,14 +27,14 @@
                                     </form>
                                 </div>
                                 <div class="search-bottom">
-                                    <a href="">收藏店铺</a>
+                                    <a href="#" @click="collectShop">收藏店铺</a>
                                 </div>
                             </div>
                         </div>
                         <div class="shop-summary j-tshopsummary">
                             <div class="shop-name">
                                 <div class="shop-name-wrap">
-                                    <a href="" class="shop-name-link"></a>
+                                    <a href="#" class="shop-name-link">{{shopmess.name}}</a>
                                 </div>
                                 <div class="shop-rank-wrap">
                                     <span class="shop-rank"></span>
@@ -112,18 +112,18 @@
                                         </div>
                                     </div>
                                     <div class="skin-box-bd">
-                                        <dl class="item" data-id="600780482336">
+                                        <dl class="item" v-for="item of goods" :key="item.index">
                                             <dt class="photo">
-                                                <a href="" target="_blank">
-                                                    <img src="../assets/fzu.png" alt="无名工装 vintage美式复古重磅油蜡夹克阿美咔叽经典复刻修身外套">
+                                                <a href="#"  @click="toStoreDetail(item)">
+                                                    <img :src='getImgUrl(item.url)' :alt="item.describe">
                                                 </a>
                                             </dt>
                                             <dd class="detail">
-                                                <a class="item-name" href="" target="_blank">无名工装 vintage美式复古重磅油蜡夹克阿美咔叽经典复刻修身外套</a>
+                                                <a class="item-name" href="#" @click="toStoreDetail(item)" >{{item.describe}}</a>
                                                 <div class="attribute">						
                                                     <div class="cprice-area">
                                                         <span class="symbol"> ¥</span>
-                                                        <span class="c-price">168.00 </span>
+                                                        <span class="c-price">{{item.price}}</span>
                                                     </div>
                                                 </div>
                                             </dd>
@@ -330,7 +330,7 @@ body div.tshop-pbsm-shop-nav-ch {
 }
 .grid-m0 .shop-col-main .tshop-pbsm-shop-item-recommend .item {
     width: 232px;
-    margin-right: 7px;
+    margin-right: 5px;
     margin-bottom: 20px;
 }
 .tshop-pbsm-shop-item-recommend .skin-box-bd{
@@ -401,5 +401,48 @@ body div.tshop-pbsm-shop-nav-ch {
 <script>
 export default {
     name:'shop',
+    data() {
+        return{
+            shopmess:'',
+            goods:'',
+            merchant:''
+        }
+    },
+    created:function(){
+        this.merchant=this.$route.query.item
+        console.log(this.merchant)
+        this.$axios.get(this.getUrl(this.$data.merchant))
+        .then(res => {
+            console.log(res)
+            this.$data.shopmess=res.data.data
+            this.$data.goods=res.data.data.goods
+        })
+        .catch(res => {
+        });
+    },
+    methods:{
+        getUrl(item){
+            var url = 'http://58.87.77.5:8080/api/merchant?merchant='+item
+            return url
+        },
+        getImgUrl(item){
+            var url = 'http://58.87.77.5:8080/img/'+item
+            return url
+        },
+        collectShop(){
+            let data={
+                "name":this.merchant
+            }
+            this.$axios.post('/api/favorite',JSON.stringify(data))
+            .then(res => {
+                console.log(res)
+            })
+            .catch(res => {
+            });
+        },
+        toStoreDetail(item){
+            this.$router.push({path:'/storedetail',query:item})
+        }
+    }
 }
 </script>
