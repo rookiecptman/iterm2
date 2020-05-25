@@ -70,9 +70,12 @@ export default {
             }
             this.$axios.post('/api/login',JSON.stringify(data))
             .then(res => {
+                console.log(res)
                 if(res.status===200){
+                    
                     setTimeout(()=>{
                         this.$router.push('/');//跳转到主页界面
+                        
                     },1000)
                     if(res.data.data.name){
                         _.loginInfo({
@@ -80,12 +83,14 @@ export default {
                         merchant:res.data.data.name,
                         state:true,
                         token:res.data.data.token,
-                        user:data.email
+                        user:data.email,
+                        uid:res.data.data.uid
                         })
                         this.$cookie.set("merchant",res.data.data.name,"1d")
                         this.$cookie.set("state",true,"1d")
                         this.$cookie.set("token",res.data.data.token,"1d")
                         this.$cookie.set("user",data.email,"1d")
+                        this.$cookie.set("uid",res.data.data.uid,"1d")
                     }
                     else{
                         _.loginInfo({
@@ -93,11 +98,13 @@ export default {
                         merchant:'',
                         state:true,
                         token:res.data.data.token,
-                        user:data.email
+                        user:data.email,
+                        uid:res.data.data.uid
                         })
                         this.$cookie.set("state",true,"1d")
                         this.$cookie.set("token",res.data.data.token,"1d")
                         this.$cookie.set("user",data.email,"1d")
+                        this.$cookie.set("uid",res.data.data.uid,"1d")
                         console.log(res)
                     }
                 }else{

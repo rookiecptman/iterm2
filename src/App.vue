@@ -77,12 +77,14 @@ export default {
                 merchant:this.$cookie.get('merchant'),
                 state:true,
                 token:this.$cookie.get('token'),
-                user:this.$cookie.get('user')
+                user:this.$cookie.get('user'),
+                uid:this.$cookie.get("uid")
             })
             this.$axios.defaults.headers = {
                 "Content-Type": "application/json;charset=UTF-8",
                 "token": this.$cookie.get('token')
             }
+            _.initWebSocket(this.$cookie.get("uid"))
         }
         else if(this.$cookie.get('token')!=null&&this.$cookie.get('token')){
             _.loginInfo({
@@ -90,12 +92,14 @@ export default {
                 merchant:'',
                 state:true,
                 token:this.$cookie.get('token'),
-                user:this.$cookie.get('user')
+                user:this.$cookie.get('user'),
+                uid:this.$cookie.get("uid")
             })
             this.$axios.defaults.headers = {
                 "Content-Type": "application/json;charset=UTF-8",
                 "token": this.$cookie.get('token')
             }
+            _.initWebSocket(this.$cookie.get("uid"))
         }
     },
     methods:{
@@ -104,14 +108,16 @@ export default {
             this.$cookie.remove("token")
             this.$cookie.remove("user")
             this.$cookie.remove("merchant")
+            this.$cookie.remove("uid")
             _.loginInfo({
                 ismerchant:false,
                 merchant:'',
                 state:false,
                 token:'',
-                user:''
+                user:'',
+                uid:''
             })
-        }
+        },
     }
 }
 </script>

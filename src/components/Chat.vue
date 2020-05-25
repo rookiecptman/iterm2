@@ -1,75 +1,55 @@
 <template>
-    <div class="chat-wrapper">
-        <div id="btn_open" class="chat-support-btn" draggable="true"><!-- 聊天窗口缩小后的头像图标 -->
-        <img src=''>
-        </div> 
+    <div class="chat-wrapper" v-if="isShow">
         <div class="chat-main" draggable="true">
-            <div class='chat-simulator'>
-                <p id="chat_hint" class="chat-hint"><span class="chat-hint-icon">!</span><span class="chat-hint-text" style='color:black'>发送内容不能为空</span></p>
-                <textarea class='simulator-text' autofocus placeholder='请写下你希望我对你说的话,按enter键提交（shift+enter键换行）。'></textarea>
-                <div class='simulator-btn'>
-                <button class='simulator-submmit'>提交</button>
-                <button class='simulator-close'>关闭</button>
-                </div>
-            </div>
             <div class="chat-header">
-                <i id="btn_close" class="chat-close">></i>
+                <i id="btn_close" class="el-icon-close" @click="closeChat"></i>
                 <div class="chat-service-info">
                     <a class="chat-service-img"></a>
                     <div class="chat-service-title">
-                        <p class="chat-service-name">客服1</p>
+                        <p class="chat-service-name">{{merchant}}</p>
                         <p class="chat-service-detail">我是您的专属客服</p>
                     </div>
                 </div>
             </div>
+            <div id="chat_contain" class="chat-contain">
+                <p class="chat-service-contain" v-for="(item, index) of severmessages" :key="index">
+                    <span class="chat-time">{{item.date}}</span>
+                    <span class="chat-text chat-service-text">{{item.message}}</span>
+                </p>
+                <p class="chat-you-contain" v-for="(item, index) of mymessages" :key="index">
+                    <span class="chat-time">{{item.date}}</span>
+                    <span class="chat-text chat-you-text">{{item.message}}</span>
+                </p>
+            </div>
             <div class="chat-submit">
                 <p id='chatHint' class="chat-hint"><span class="chat-hint-icon">!</span><span class="chat-hint-text">发送内容不能为空</span></p>
-                <textarea id="chat_input" class="chat-input-text" autofocus placeholder="请输入您想对我说的话，按Enter键发送（shift+Enter换行）。"></textarea>
+                <textarea id="chat_input" class="chat-input-text" autofocus placeholder="请输入您想对我说的话" v-model="message"></textarea>
                 <div class="chat-input-tools">
-                    <button class="chat-input-button">发送</button>
-                    <button class="chat-service-simulator">模拟</button>
-                    <button class="chat-close-button">关闭</button>
+                    <button class="chat-input-button" @click="sendMess">发送</button>
+                    <button class="chat-close-button" @click="closeChat">关闭</button>
                 </div>
-            </div>
-            <div class="header-info-div">
-                <h2 class="header-info-h2">客服1</h2>
-                <span class="header-info-span">我是您的专属客服</span>
             </div>
         </div>
     </div>
-
 </template>
 <style >
 .chat-wrapper {
     font-size: 14px;
     color: #fff;
-}
-/*右侧按钮*/
- .chat-support-btn {
-    position: fixed;
-    display: inline-block;
-    top: 50%;
-    right: 0;
-    margin-top: -70px;
-    width: 40px;
-    height: 40px;
-	cursor:pointer;
-	
-}
-.chat-support-btn img{
-	position:absolute;
-	border-radius:50%;
+
 }
 /* 对话框*/
 .chat-main {
     position: fixed;
     /* display: none; */
-    right: 100px;
-    bottom: 10px;
+    top: 100px;
+    right: 0;
     width: 650px;
     height: 800px;
     border-radius: 4px; 
     box-shadow: 0 0 5px rgba(0, 0, 0, .4);
+    z-index: 1000000000000000;
+    background-color: #fff;
 } 
  
 /*对话框头部*/
@@ -84,23 +64,6 @@
 }
 .chat-header a:hover{
 	cursor:pointer;
-}
-/*个人信息框*/
-.header-info-div{
-	display:none;
-	width:290px;
-	height:150px;
-	margin:-600px 0 0 -300px;
-	border-radius:4px;
-}
-.header-info-h2{
-	display:inline-block;
-	margin:15px 0 0 25px;
-}
-.header-info-span{
-	position:absolute;
-	top:45px;
-	left:-276px;
 }
 .chat-close {
     position: absolute;
@@ -145,7 +108,7 @@
 .chat-contain {
     overflow-y: auto;
     padding: 10px;
-    height: 380px;
+    height: 580px;
     word-wrap: break-word;
     background-color: #f9f9f9;
 }
@@ -222,7 +185,10 @@
 }
 /*客服对话框底部与输入*/
 .chat-submit {
-    position: relative;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 650px;
     padding: 10px;
     height: 100px;
     color: #000;
@@ -299,40 +265,59 @@ button{
 .chat-input-tools>button:hover{
 	cursor:pointer;
 }
-.simulator-text{
-	display: inline-block;
-	width:200px;
-	height:260px;
-	overflow-y: auto;
-    padding: 10px 10px;
-    vertical-align: middle;
-	color: #000;
-    white-space: pre-wrap;
-    word-wrap: break-word;
-    resize: none;
-    box-sizing: border-box;
-	
-}
-.chat-simulator{
-	display:none;
-	position:absolute;
-	left:-230px;
-	top:200px;
-	width:200px;
-	height:300px;
-	border:1px solid  #cc3333;
-	border-radius:4px;
-	background-color: #f9f9f9;
-	box-shadow: 0 0 5px rgba(0, 0, 0, .4);
-}
-.simulator-btn{
-	float:right;
-	padding:0 10px;
-}
 </style>
 <script>
+import * as _ from '../util/index'
 export default {
+    props:['merchant','isShow'],
     name:'chat',
-    
+    data(){
+        return{
+            mymessages:[],
+            message:'',
+            severmessages:[],
+            uid:'',
+        }
+    },
+    created:function(){
+        this.$axios.get(this.getUrl(this.merchant))
+        .then(res => {
+            console.log(res)
+            this.$data.uid=res.data.data.uid
+        })
+        .catch(res => {
+        });
+    },
+    watch:{
+        '$store.state.message':function(){
+            this.severmessages.push(this.$store.state.message)
+        }
+    },
+    methods:{
+        getUrl(item){
+            var url = 'http://58.87.77.5:8080/api/merchant?merchant='+item
+            return url
+        },
+        sendMess(){
+            let date =new Date()
+            let newmessage={
+                "to":this.uid,
+                "message":this.message,
+                "date":date.getHours()+':'+date.getMinutes()+':'+date.getSeconds()
+            }
+            this.mymessages.push(newmessage)
+            console.log(this.mymessages)
+            let data={
+                "to":this.uid,
+                "message":this.message
+            }
+            this.message=''
+            console.log(data)
+            _.webSocketSend(data)
+        },
+        closeChat(){
+            this.isShow=false
+        }
+    }
 }
 </script>

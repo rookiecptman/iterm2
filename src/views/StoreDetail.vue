@@ -37,7 +37,7 @@
                                     <a href="#" class="shop-name-link" @click="toShop(stores.merchant)">{{stores.merchant}}</a>
                                 </div>
                                 <div class="shop-rank-wrap">
-                                    <span class="shop-rank"></span>
+                                    <a class="shop-rank" @click="showChat" style="font-size:12px;" href="#">联系卖家</a>
                                 </div>
                             </div>
                             <div class="shop-service-info">
@@ -68,6 +68,7 @@
             </div>
         </div>
         <div id="page">
+            <chat :merchant="stores.merchant" :isShow="isShow" v-if="isShow"/>
             <div id="content">
                 <div id="bd">
                     <div id="detail">
@@ -195,7 +196,9 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="tb-sidebar tb-clear"></div>
+                            <div class="tb-sidebar tb-clear">
+                                
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -762,12 +765,18 @@
 }
 </style>
 <script>
+import Chat from '../components/Chat'
+import * as _ from '../util/index'
 export default {
+    components:{
+        Chat
+    },
     name:'storedetail',
     data() {
         return{
             stores:'',
-            count:1
+            count:1,
+            isShow:false
         }
     },
     created:function(){
@@ -826,6 +835,10 @@ export default {
             .catch(res => {
             });
         },
+        showChat(){
+            this.isShow=false
+            this.isShow=true
+        }
     }
 }
 </script>

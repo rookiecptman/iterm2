@@ -1,6 +1,5 @@
 <template>
     <div id="page" class="page-itemimglist">
-        <chat/>
         <div id="collect-content">
             <div id="mercury">
                 <div id="fav-tab">
@@ -366,12 +365,9 @@
 }
 </style>
 <script>
-import Chat from '../components/Chat.vue'
+
 export default {
     name:'collectstore',
-    components:{
-        Chat
-    },
     data(){
         return{
             goods:''

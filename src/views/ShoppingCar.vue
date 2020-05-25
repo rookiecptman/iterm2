@@ -672,7 +672,8 @@ export default {
     name:'shoppingcar',
     data(){
         return{
-            goods:''
+            goods:'',
+            
         }
     },
     created:function(){

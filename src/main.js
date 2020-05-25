@@ -16,6 +16,7 @@ axios.defaults.baseURL = 'http://58.87.77.5:8080/'
 Vue.prototype.$axios = axios
 Vue.prototype.$qs = qs
 Vue.prototype.$cookie = VueCookie
+Vue.prototype.$global = App
 
 new Vue({
   router,

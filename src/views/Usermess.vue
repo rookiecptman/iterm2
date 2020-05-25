@@ -385,7 +385,7 @@ export default {
         }
         else{
             this.userinfo.user=this.$store.state.loginInfo.user
-            this.userinfo.merchant=this.$cookie.get('merchat')
+            this.userinfo.merchant=this.$cookie.get('merchant')
             this.userinfo.ismerchant=this.$store.state.loginInfo.ismerchant
             console.log(this.userinfo)
         }
