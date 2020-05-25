@@ -112,7 +112,7 @@
                                         </div>
                                     </div>
                                     <div class="skin-box-bd">
-                                        <dl class="item" v-for="item of goods" :key="item.index">
+                                        <dl class="item" v-for="(item, index) of goods" :key="index">
                                             <dt class="photo">
                                                 <a href="#"  @click="toStoreDetail(item)">
                                                     <img :src='getImgUrl(item.url)' :alt="item.describe">

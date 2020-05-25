@@ -57,7 +57,7 @@
                     <div class="m-itemlist">
                         <div class="grid g-clearfix">
                             <div class="items" >
-                                <div class="item j-mouseronverreq item-ad" v-for="item of stores" :key="item.index">
+                                <div class="item j-mouseronverreq item-ad" v-for="(item, index) of stores" :key="index">
                                     <div class="pic-box j-mouseenterleave j-picbox">
                                         <div class="pic-box-inner">
                                             <div class="pic">

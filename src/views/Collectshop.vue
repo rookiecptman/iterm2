@@ -4,23 +4,23 @@
             <div id="mercury">
                 <div id="fav-tab">
                     <div id="fav-tab-bd">
-                        <div data-spm="1997985201" id="fav-tab-menu" class="clearfix floatleft">
-                            <a aria-label="您可以使用tab键寻找您的收藏" class="fav-logo" href="/">
+                        <div id="fav-tab-menu" class="clearfix floatleft">
+                            <a  class="fav-logo" href="/">
                                 <img aria-label="欢迎访问淘宝收藏夹" src="//img.alicdn.com/tps/i1/T1gbUrFeVaXXXO7MrX-136-28.png">
                             </a>
-                            <a class="item-page " href="/item_collect_n.htm" data-spm="">宝贝收藏</a>
-                            <a class="shop-page current" href="/shop_collect_list_n.htm" data-spm="d4919065">店铺收藏</a>
+                            <a class="item-page " href="/collectstore" >宝贝收藏</a>
+                            <a class="shop-page current" href="/collectshop" >店铺收藏</a>
                         </div>
                         <div class="fav-search" data-spm="1975051493">
                             <div class="search " id="J_Search" role="search">
                                 <div class="search-panel search-sns-panel-field">
-                                    <form class="search-panel-focused" id="J_TSearchForm" name="search" action="//s.taobao.com/search" target="_top">
-                                        <input name="_tb_token_" type="hidden" value="5b73e065b3eee">
+                                    <form class="search-panel-focused" id="J_TSearchForm" name="search" target="_top">
+                                        <input name="_tb_token_" type="hidden">
                                         <div class="collect-search-button">
                                             <button type="submit" class="btn-search">搜 索</button>
                                         </div>
                                         <div class="search-panel-fields">
-                                            <div class="search-combobox" id="ks-component122"><div class="search-combobox-input-wrap"><input id="q" name="q" accesskey="s" autocomplete="off" x-webkit-speech="" x-webkit-grammar="builtin:translate" value="" aria-label="搜索全网请输入搜索文字或从搜索历史中选择" aria-haspopup="true" aria-combobox="list" role="combobox" class="search-combobox-input"></div></div>
+                                            <div class="search-combobox" id="ks-component122"><div class="search-combobox-input-wrap"><input id="q" name="q" accesskey="s" value=""  role="combobox" class="search-combobox-input"></div></div>
                                         </div>
                                     </form>
                                 </div>
@@ -36,7 +36,7 @@
                                     <div class="fav-select" data-spm="">
                                         <ul>
                                             <li class="fav-sel-item fav-sel-item-first J_SelItemsTags ">  
-                                                <span class="fav-sel-link fav-sel-select">全部店铺<em>2</em></span>         
+                                                <span class="fav-sel-link fav-sel-select">全部店铺</span>         
                                             </li>     
                                         </ul>
                                     </div>
@@ -56,24 +56,24 @@
                     </div>
                     <div id="fav-list">
                         <ul class="img-item-list J_FavList clearfix">                   
-                            <li class=" J_FavListItem fav-shop   clearfix" data-id="36848177" data-ownerid="143074663" data-istop="false" data-spm="">
+                            <li class=" J_FavListItem fav-shop   clearfix" v-for="(item, index) of shops" :key="index">
                                 <div class="shop-card g-sl-l-item clcearfix">
                                     <div class="shop-card-side">
                                         <div class="logo J_ShopClassTri">
-                                            <a href="//store.taobao.com/?shop_id=36848177" target="_blank">
-                                                <img class="logo-img" src=" //img.alicdn.com/bao/uploaded//06/5e/TB1tbuhSVXXXXXyXVXXSutbFXXX.jpg_50x50.jpg ">
+                                            <a href="#" @click="toShop(item.name)">
+                                                <img class="logo-img" src="../assets/avatar.png">
                                             </a>
                                         </div>
                                     </div>
                                     <div class="shop-card-main">
                                         <div class="shop-name">
-                                            <a class="shop-name-link" title="清潭洞美食馆" href="//store.taobao.com/?shop_id=36848177" target="_blank" data-spm="">
-                                            清潭洞美食馆
+                                            <a class="shop-name-link" href="#" @click="toShop(item.name)">
+                                                {{item.name}}
                                             </a>
                                         </div>
                                         <div class="seller J_ShopClassTri">
-                                            <a class="seller-link" title="shanghai4989" href="//store.taobao.com/?shop_id=36848177" target="_blank" data-spm="">
-                                                shang...
+                                            <a class="seller-link" href="#"  data-spm="">
+                                                {{item.username}}
                                             </a>
                                             <span class="ww-light ww-small" data-nick="shanghai4989" data-icon="small" data-spm="$!spmWangWang">
                                                 <a href="" target="_blank" class="ww-inline ww-online" title="点此可以直接和卖家交流选好的宝贝，或相互交流网购体验，还支持语音视频噢。">
@@ -106,16 +106,16 @@
                                     </div>
                                     <div class="item-list">
                                         <ul class="item-list-latestUp-ul clearfix">
-                                            <li class="item-box g-sl-r-item">
+                                            <li class="item-box g-sl-r-item" v-for="(item1, index) of item.goods" :key="index">
                                                 <div class="item">
-                                                    <a tabindex="-1" target="_blank" href="//item.taobao.com/item.htm?id=617905976574&amp;_u=j2krlhnd65e5" title="韩国进口不倒翁快餐面/韩国奥土基拉面热泡米饭更好吃108g*5袋">
-                                                        <img class="item-img" src="//img.alicdn.com/bao/uploaded/i2/143074663/O1CN01069N851kJhSE00R6o_!!143074663.jpg_160x160xz.jpg" alt="韩国进口不倒翁快餐面/韩国奥土基拉面热泡米饭更好吃108g*5袋">
+                                                    <a tabindex="-1" target="_blank" href="#" @click="toDetail(item1)" title="韩国进口不倒翁快餐面/韩国奥土基拉面热泡米饭更好吃108g*5袋">
+                                                        <img class="item-img" :src='getImgUrl(item1.url)' :alt="item1.describe">
                                                     </a>
                                                 </div>
                                                 <div class="g_price-box">
                                                     <div class="g_price">
                                                         <span>¥</span>
-                                                        <strong>28.80</strong>
+                                                        <strong>{{item1.price}}</strong>
                                                     </div>
                                                 </div>
                                             </li>   
@@ -304,5 +304,38 @@
 <script>
 export default {
     name:'collectshop',
+    data(){
+        return{
+            shops:''
+        }
+    },
+    created:function(){
+        this.$axios.get('/api/favorite').then((res)=>{
+            console.log(res)
+            this.shops=res.data.data
+        }).catch(err=>{
+
+        })
+    },
+    methods:{
+        getImgUrl(item){
+            var url = 'http://58.87.77.5:8080/img/'+item
+            return url
+        },
+        deleteShop(item){
+            this.$axios.delete('/api/collect/'+item).then((res)=>{
+                console.log(res)
+                this.$router.go(0)
+            }).catch(err=>{
+
+            })
+        },
+        toDetail(item){
+            this.$router.push({path:'/storedetail',query:item})
+        },
+        toShop(item){
+            this.$router.push({path:'/shop',query:{item}})
+        },
+    }
 }
 </script>

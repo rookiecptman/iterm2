@@ -1,5 +1,6 @@
 <template>
     <div id="page" class="page-itemimglist">
+        <chat/>
         <div id="collect-content">
             <div id="mercury">
                 <div id="fav-tab">
@@ -8,8 +9,8 @@
                             <a aria-label="您可以使用tab键寻找您的收藏" class="fav-logo" href="/">
                                 <img aria-label="欢迎访问淘宝收藏夹" src="//img.alicdn.com/tps/i1/T1gbUrFeVaXXXO7MrX-136-28.png">
                             </a>
-                            <a class="item-page current" href="/item_collect_n.htm" data-spm="">宝贝收藏</a>
-                            <a class="shop-page " href="/shop_collect_list_n.htm" data-spm="d4919065">店铺收藏</a>
+                            <a class="item-page current" href="/collectstore" >宝贝收藏</a>
+                            <a class="shop-page " href="/collectshop" >店铺收藏</a>
                         </div>
                         <div class="fav-search" data-spm="1975051493">
                             <div class="search " id="J_Search" role="search">
@@ -36,17 +37,17 @@
                                     <div class="fav-select" data-spm="">
                                         <ul>
                                             <li class="fav-sel-item fav-sel-item-first J_SelItemsTags ">  
-                                                <span class="fav-sel-link fav-sel-select">全部宝贝<em>2</em></span>         
+                                                <span class="fav-sel-link fav-sel-select">全部宝贝</span>         
                                             </li>     
                                         </ul>
                                     </div>
                                     <div class="fav-search cleatfix">
                                         <form class="fav-search-panel-focused" id="J_FavSearchForm" name="favsearch" action="/item_collect_n.htm" target="_top">
                                             <div class="fav-search-panel-fields">
-                                                <input id="fav-q" name="value" accesskey="s" autocomplete="off" x-webkit-speech="" x-webkit-grammar="builtin:translate" placeholder="宝贝搜索" value="" aria-haspopup="true" aria-combobox="list" role="combobox" class="search-combobox-input" aria-label="输入关键词搜索收藏夹内的宝贝">
+                                                <input id="fav-q" name="value" accesskey="s" placeholder="宝贝搜索"  class="search-combobox-input">
                                             </div>
                                             <div class="fav-collect-search-button">
-                                                <button type="button" class="fav-btn-search" data-spm-click="gostr=/tbscj;locaid=d1selbtn">搜索</button>
+                                                <button type="button" class="fav-btn-search" >搜索</button>
                                             </div>
                                         </form>
                                     </div>  
@@ -56,10 +57,10 @@
                     </div>
                     <div id="fav-list">
                         <ul class="img-item-list J_FavList clearfix">                   
-                            <li class="J_FavListItem g-i-item fav-item " v-for="item of goods" :key="item.index">
+                            <li class="J_FavListItem g-i-item fav-item " v-for="(item, index) of goods" :key="index">
                                 <div class="img-controller-box J_FavImgController">
                                     <div class="img-controller-img-box">
-                                        <a href="#" class="img-controller-img-link" :title="item.describe">              
+                                        <a href="#" @click="toDetail(item)" class="img-controller-img-link" :title="item.describe">              
                                             <img class="img-controller-img" :src='getImgUrl(item.url)' :alt="item.describe">
                                         </a>
                                     </div>
@@ -365,8 +366,12 @@
 }
 </style>
 <script>
+import Chat from '../components/Chat.vue'
 export default {
     name:'collectstore',
+    components:{
+        Chat
+    },
     data(){
         return{
             goods:''
@@ -388,11 +393,14 @@ export default {
         deleteStore(item){
             this.$axios.delete('/api/collect/'+item).then((res)=>{
                 console.log(res)
-                this.$router.push('/collectstore')
+                this.$router.go(0)
             }).catch(err=>{
 
             })
-        }
+        },
+        toDetail(item){
+            this.$router.push({path:'/storedetail',query:item})
+        },
     }
 }
 </script>

@@ -11,7 +11,6 @@ import StoreDetail from '../views/StoreDetail.vue'
 import ShoppingCar from '../views/ShoppingCar.vue'
 import Collectstore from '../views/Collectstore.vue'
 import Collectshop from '../views/Collectshop.vue'
-import Chat from '../views/Chat.vue'
 import Merchant from '../views/Merchant.vue'
 import Uploadstore from '../views/Uploadstore.vue'
 
@@ -72,11 +71,6 @@ Vue.use(VueRouter)
     path: '/collectshop',
     name: 'Collectshop',
     component: Collectshop
-  },
-  {
-    path: '/chat',
-    name: 'Chat',
-    component: Chat
   },
   {
     path: '/merchant',

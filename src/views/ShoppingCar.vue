@@ -80,7 +80,7 @@
                             </div>
                         </div>
                         <div id="J_OrderList">
-                            <div id="" style="height: auto;">
+                            <div id="" style="height: auto;"  v-for="(item, index) of goods" :key="index">
                                 <div id="" class="J_Order clearfix order-body">
                                     <div class="J_ItemHead shop clearfix">
                                         <div class="shop-info">
@@ -88,22 +88,22 @@
                                                 <input class="J_CheckBoxShop" id="J_CheckShop_s_4061944445_1" type="checkbox"  value="s_4061944445_1">
                                                 <label for="J_CheckShop_s_4061944445_1">勾选此店铺下所有商品</label>
                                             </div>&nbsp;&nbsp;
-                                            店铺：<a href="" target="_blank" title="HAIRRECIPE官方旗" class="J_MakePoint" >HAIRRECIPE官方旗</a>
+                                            店铺：<a href="#" @click="toShop(item.good.merchant)" title="HAIRRECIPE官方旗" class="J_MakePoint" >{{item.good.merchant}}</a>
                                         </div>
                                     </div>
                                     <div class="order-content">
                                         <div id="J_BundleList_s_4061944445_1" class="item-list">
                                             <div id="J_Bundle_s_4061944445_1_0" class="bundle  bundle-last ">
                                                 <div class="bundle-main">
-                                                    <div id="J_ItemList_s_4061944445_s_4061944445_12042488860" class="item-list">
+                                                    <div  class="item-list">
                                                         <div id="J_ItemHolder_1119223809298" class="item-holder">
-                                                            <div id="J_Item_1119223809298" class="J_ItemBody item-body clearfix item-act  first-item  last-item   ">  
-                                                                <ul class="item-content clearfix"> 
+                                                            <div id="J_Item_1119223809298" class="J_ItemBody item-body clearfix item-act  first-item  last-item ">  
+                                                                <ul class="item-content clearfix" > 
                                                                     <li class="td td-chk"> 
                                                                         <div class="td-inner">
                                                                             <div style="height: 82px;position: relative;">
                                                                                 <div class="cart-checkbox ">
-                                                                                    <input class="J_CheckBoxItem" id="J_CheckBox_1119223809298" type="checkbox"  value="1119223809298">
+                                                                                    <input class="J_CheckBoxItem"  type="checkbox"  checked>
                                                                                     <label for="J_CheckBox_1119223809298">勾选商品</label>
                                                                                 </div>
                                                                             </div>
@@ -112,20 +112,20 @@
                                                                     <li class="td td-item"> 
                                                                         <div class="td-inner"> 
                                                                             <div class="item-pic J_ItemPic img-loaded">
-                                                                                <a href="" target="_blank" class="J_MakePoint J_GoldReport" data-point="tbcart.8.12" data-spm-anchor-id="a1z0d.6639537.1997196601.3">
-                                                                                    <img src="" class="itempic J_ItemImg">
+                                                                                <a href="#" @click="toDetail(item.good)" class="J_MakePoint J_GoldReport" >
+                                                                                    <img :src='getImgUrl(item.good.url)' class="itempic J_ItemImg">
                                                                                 </a>
                                                                             </div> 
                                                                             <div class="item-info"> 
                                                                                 <div class="item-basic-info"> 
-                                                                                    <a href="" target="_blank"  class="item-title J_GoldReport J_MakePoint" >HairRecipe发之食谱无硅水润柔顺无花果蜂蜜苹果生姜洗发水护发素</a>   
+                                                                                    <a href="" target="_blank"  class="item-title J_GoldReport J_MakePoint" >{{item.good.describe}}</a>   
                                                                                 </div> 
                                                                             </div> 
                                                                         </div> 
                                                                     </li> 
                                                                     <li class="td td-info"> 
                                                                         <div class="item-props item-props-can">
-                                                                            <p class="sku-line" tabindex="0">化妆品净含量：无花果洗530ml</p>
+                                                                            <p class="sku-line" tabindex="0">商品样式</p>
                                                                         </div> 
                                                                     </li> 
                                                                     <li class="td td-price"> 
@@ -133,7 +133,7 @@
                                                                             <div class="item-price price-promo-">
                                                                                 <div class="price-content">
                                                                                     <div class="price-line">
-                                                                                        <em class="J_Price price-now" tabindex="0">￥89.90</em>
+                                                                                        <em class="J_Price price-now" tabindex="0">￥{{item.good.price}}</em>
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
@@ -143,24 +143,24 @@
                                                                         <div class="td-inner">
                                                                             <div class="amount-wrapper ">
                                                                                 <div class="item-amount ">
-                                                                                    <a href="#" class="J_Minus minus">-</a>
-                                                                                    <input type="text" value="2" class="text text-amount J_ItemAmount" data-max="370" data-now="2" autocomplete="off">
-                                                                                    <a href="#" class="J_Plus plus" >+</a>
+                                                                                    <a href="#" class="J_Minus minus" @click="reduce(index)">-</a>
+                                                                                    <input type="text" :v-model='item.num' :placeholder="item.num" class="text text-amount J_ItemAmount" >
+                                                                                    <a href="#" class="J_Plus plus" @click="increase(index)">+</a>
                                                                                 </div>
                                                                             </div>
                                                                         </div> 
                                                                     </li> 
                                                                     <li class="td td-sum"> 
                                                                         <div class="td-inner">
-                                                                            <em tabindex="0" class="J_ItemSum number">￥179.80</em>
+                                                                            <em tabindex="0" class="J_ItemSum number">￥{{item.good.price*item.num}}</em>
                                                                             <div class="J_ItemLottery">
                                                                             </div>
                                                                         </div> 
                                                                     </li>
                                                                     <li class="td td-op"> 
                                                                         <div class="td-inner">
-                                                                            <a title="移入收藏夹" class="btn-fav J_Fav J_MakePoint"  href="#" >移入收藏夹</a>
-                                                                            <a href="javascript:;"  class="J_Del J_MakePoint" >删除</a>
+                                                                            <a title="移入收藏夹" class="btn-fav J_Fav J_MakePoint"  href="#" @click="collectStore">移入收藏夹</a>
+                                                                            <a href="#"  class="J_Del J_MakePoint" @click="deleteCart(item.good.gid)">删除</a>
                                                                         </div> 
                                                                     </li>
                                                                 </ul>  
@@ -670,5 +670,60 @@ a {
 <script>
 export default {
     name:'shoppingcar',
+    data(){
+        return{
+            goods:''
+        }
+    },
+    created:function(){
+        this.$axios.get('/api/cart').then((res)=>{
+            console.log(res)
+            this.goods=res.data.data
+        }).catch(err=>{
+
+        })
+    },
+    methods:{
+        getImgUrl(item){
+            var url = 'http://58.87.77.5:8080/img/'+item
+            return url
+        },
+        deleteCart(item){
+            this.$axios.delete('/api/cart/'+item).then((res)=>{
+                console.log(res)
+                this.$router.go(0)
+            }).catch(err=>{
+
+            })
+        },
+        toDetail(item){
+            this.$router.push({path:'/storedetail',query:item})
+        },
+        toShop(item){
+            this.$router.push({path:'/shop',query:{item}})
+        },
+        reduce(item){
+            if(this.goods[item].num>1){
+                this.goods[item].num--
+            }
+            
+        },
+        increase(item){
+            if(this.goods[item].num<this.goods[item].good.count){
+                this.goods[item].num++
+            }
+        },
+        collectStore(){
+            let data={
+                "gid":this.stores.gid
+            }
+            this.$axios.post('/api/collect',JSON.stringify(data))
+            .then(res => {
+                console.log(res)
+            })
+            .catch(res => {
+            });
+        },
+    }
 }
 </script>
