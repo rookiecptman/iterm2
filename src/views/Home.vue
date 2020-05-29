@@ -842,6 +842,11 @@ export default {
     },
     methods:{
 
+    },
+    watch:{
+        '$store.state.message':function(){
+            
+        }
     }
 }
 
